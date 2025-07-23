@@ -33,11 +33,14 @@ public class PlayGame {
          int roll = readRoll();
          aGame.roll(roll);
 
-         System.out.print(">> Was the answer correct? [y/n] ");
-         boolean correct = readYesNo();
+         System.out.print(">> Enter your answer [a/b/c/d]: ");
+         String playerAnswer = readAnswer();
+         boolean correct = aGame.checkAnswer(playerAnswer);
          if (correct) {
+            System.out.println(">> Correct! The answer was " + aGame.getCorrectAnswer());
             notAWinner = aGame.handleCorrectAnswer();
          } else {
+            System.out.println(">> Wrong! The correct answer was " + aGame.getCorrectAnswer());
             notAWinner = aGame.wrongAnswer();
          }
 
@@ -45,13 +48,13 @@ public class PlayGame {
       System.out.println(">> Game won!");
    }
 
-   private static boolean readYesNo() {
-      String yn = scanner.nextLine().trim().toUpperCase();
-      if (!yn.matches("[YN]")) {
-         System.err.println("y or n please");
-         return readYesNo();
+   private static String readAnswer() {
+      String answer = scanner.nextLine().trim().toLowerCase();
+      if (!answer.matches("[abcd]")) {
+         System.err.println("a, b, c, or d please");
+         return readAnswer();
       }
-      return yn.equalsIgnoreCase("Y");
+      return answer;
    }
 
    private static int readRoll() {

@@ -2,6 +2,11 @@ package com.diamantetechcoaching;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Game {
    ArrayList players = new ArrayList();
@@ -9,25 +14,132 @@ public class Game {
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   LinkedList popQuestions = new LinkedList();
-   LinkedList scienceQuestions = new LinkedList();
-   LinkedList sportsQuestions = new LinkedList();
-   LinkedList rockQuestions = new LinkedList();
+   LinkedList softwareHistoryQuestions = new LinkedList();
+   LinkedList programmingLanguagesQuestions = new LinkedList();
+   LinkedList refactoringQuestions = new LinkedList();
+   LinkedList testingQuestions = new LinkedList();
+   LinkedList softwareHistoryAnswers = new LinkedList();
+   LinkedList programmingLanguagesAnswers = new LinkedList();
+   LinkedList refactoringAnswers = new LinkedList();
+   LinkedList testingAnswers = new LinkedList();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
+   String currentCorrectAnswer = "";
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
+      loadSoftwareHistoryQuestions();
+      loadProgrammingLanguagesQuestions();
+      loadRefactoringQuestions();
+      loadTestingQuestions();
+   }
+   
+   private void loadSoftwareHistoryQuestions() {
+      try {
+         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
+         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+         String line;
+         while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length >= 6) {
+               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+               softwareHistoryQuestions.addLast(question);
+               softwareHistoryAnswers.addLast(parts[5]);
+            }
+         }
+         br.close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Fallback questions if file reading fails
+         for (int i = 0; i < 50; i++) {
+            softwareHistoryQuestions.addLast("Software History Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
+            softwareHistoryAnswers.addLast("a");
+         }
+      }
+   }
+   
+   private void loadProgrammingLanguagesQuestions() {
+      try {
+         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/programming_languages.txt");
+         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+         String line;
+         while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length >= 6) {
+               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+               programmingLanguagesQuestions.addLast(question);
+               programmingLanguagesAnswers.addLast(parts[5]);
+            }
+         }
+         br.close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Fallback questions if file reading fails
+         for (int i = 0; i < 50; i++) {
+            programmingLanguagesQuestions.addLast("Programming Languages Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
+            programmingLanguagesAnswers.addLast("a");
+         }
+      }
+   }
+   
+   private void loadRefactoringQuestions() {
+      try {
+         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
+         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+         String line;
+         while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length >= 6) {
+               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+               refactoringQuestions.addLast(question);
+               refactoringAnswers.addLast(parts[5]);
+            }
+         }
+         br.close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Fallback questions if file reading fails
+         for (int i = 0; i < 50; i++) {
+            refactoringQuestions.addLast("Refactoring Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
+            refactoringAnswers.addLast("a");
+         }
+      }
+   }
+   
+   private void loadTestingQuestions() {
+      try {
+         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
+         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+         String line;
+         while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            if (parts.length >= 6) {
+               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+               testingQuestions.addLast(question);
+               testingAnswers.addLast(parts[5]);
+            }
+         }
+         br.close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Fallback questions if file reading fails
+         for (int i = 0; i < 50; i++) {
+            testingQuestions.addLast("Testing Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
+            testingAnswers.addLast("a");
+         }
       }
    }
 
    public String createRockQuestion(int index) {
       return "Rock Question " + index;
+   }
+   
+   public boolean checkAnswer(String playerAnswer) {
+      return currentCorrectAnswer.equalsIgnoreCase(playerAnswer.trim());
+   }
+   
+   public String getCorrectAnswer() {
+      return currentCorrectAnswer;
    }
 
    public boolean isPlayable() {
@@ -86,28 +198,36 @@ public class Game {
    }
 
    private void askQuestion() {
-      if (currentCategory() == "Pop")
-         System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == "Science")
-         System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == "Sports")
-         System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == "Rock")
-         System.out.println(rockQuestions.removeFirst());
+      if (currentCategory() == "Software History") {
+         System.out.println(softwareHistoryQuestions.removeFirst());
+         currentCorrectAnswer = (String) softwareHistoryAnswers.removeFirst();
+      }
+      if (currentCategory() == "Programming Languages") {
+         System.out.println(programmingLanguagesQuestions.removeFirst());
+         currentCorrectAnswer = (String) programmingLanguagesAnswers.removeFirst();
+      }
+      if (currentCategory() == "Refactoring") {
+         System.out.println(refactoringQuestions.removeFirst());
+         currentCorrectAnswer = (String) refactoringAnswers.removeFirst();
+      }
+      if (currentCategory() == "Testing") {
+         System.out.println(testingQuestions.removeFirst());
+         currentCorrectAnswer = (String) testingAnswers.removeFirst();
+      }
    }
 
 
    private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Pop";
-      if (places[currentPlayer] - 1 == 4) return "Pop";
-      if (places[currentPlayer] - 1 == 8) return "Pop";
-      if (places[currentPlayer] - 1 == 1) return "Science";
-      if (places[currentPlayer] - 1 == 5) return "Science";
-      if (places[currentPlayer] - 1 == 9) return "Science";
-      if (places[currentPlayer] - 1 == 2) return "Sports";
-      if (places[currentPlayer] - 1 == 6) return "Sports";
-      if (places[currentPlayer] - 1 == 10) return "Sports";
-      return "Rock";
+      if (places[currentPlayer] - 1 == 0) return "Software History";
+      if (places[currentPlayer] - 1 == 4) return "Software History";
+      if (places[currentPlayer] - 1 == 8) return "Software History";
+      if (places[currentPlayer] - 1 == 1) return "Programming Languages";
+      if (places[currentPlayer] - 1 == 5) return "Programming Languages";
+      if (places[currentPlayer] - 1 == 9) return "Programming Languages";
+      if (places[currentPlayer] - 1 == 2) return "Refactoring";
+      if (places[currentPlayer] - 1 == 6) return "Refactoring";
+      if (places[currentPlayer] - 1 == 10) return "Refactoring";
+      return "Testing";
    }
 
    public boolean handleCorrectAnswer() {

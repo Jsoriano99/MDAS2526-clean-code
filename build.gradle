@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.15.0'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'info.solidsoft.pitest'
+
+group = 'com.diamantetechcoaching'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'com.approvaltests:approvaltests:25.0.14'
+
+    pitest 'org.pitest:pitest-junit5-plugin:1.2.2'
+    pitest 'org.pitest:pitest-entry:1.15.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+pitest {
+    targetClasses = ['com.diamantetechcoaching.*']
+    targetTests = ['com.diamantetechcoaching.*']
+    testPlugin = 'junit5'
+    threads = 4
+    outputFormats = ['HTML', 'XML']
+    timestampedReports = false
+    mutationThreshold = 70
+    coverageThreshold = 80
+    mutators = ['ALL']
+    jvmArgs = ['-Xmx1024m']
+    reportDir = file("${project.layout.buildDirectory.get()}/reports/pitest")
+}

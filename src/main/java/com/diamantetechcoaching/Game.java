@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
 
 public class Game {
    ArrayList players = new ArrayList();
@@ -39,15 +40,29 @@ public class Game {
          InputStream is = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
          BufferedReader br = new BufferedReader(new InputStreamReader(is));
          String line;
+         ArrayList tempQuestions = new ArrayList();
+         ArrayList tempAnswers = new ArrayList();
          while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             if (parts.length >= 6) {
                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               softwareHistoryQuestions.addLast(question);
-               softwareHistoryAnswers.addLast(parts[5]);
+               tempQuestions.add(question);
+               tempAnswers.add(parts[5]);
             }
          }
          br.close();
+         // Create indices and shuffle them to maintain question-answer pairing
+         ArrayList indices = new ArrayList();
+         for (int i = 0; i < tempQuestions.size(); i++) {
+            indices.add(i);
+         }
+         Collections.shuffle(indices);
+         // Add questions and answers in shuffled order
+         for (int i = 0; i < indices.size(); i++) {
+            int index = (Integer) indices.get(i);
+            softwareHistoryQuestions.addLast(tempQuestions.get(index));
+            softwareHistoryAnswers.addLast(tempAnswers.get(index));
+         }
       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
@@ -63,15 +78,29 @@ public class Game {
          InputStream is = getClass().getClassLoader().getResourceAsStream("questions/programming_languages.txt");
          BufferedReader br = new BufferedReader(new InputStreamReader(is));
          String line;
+         ArrayList tempQuestions = new ArrayList();
+         ArrayList tempAnswers = new ArrayList();
          while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             if (parts.length >= 6) {
                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               programmingLanguagesQuestions.addLast(question);
-               programmingLanguagesAnswers.addLast(parts[5]);
+               tempQuestions.add(question);
+               tempAnswers.add(parts[5]);
             }
          }
          br.close();
+         // Create indices and shuffle them to maintain question-answer pairing
+         ArrayList indices = new ArrayList();
+         for (int i = 0; i < tempQuestions.size(); i++) {
+            indices.add(i);
+         }
+         Collections.shuffle(indices);
+         // Add questions and answers in shuffled order
+         for (int i = 0; i < indices.size(); i++) {
+            int index = (Integer) indices.get(i);
+            programmingLanguagesQuestions.addLast(tempQuestions.get(index));
+            programmingLanguagesAnswers.addLast(tempAnswers.get(index));
+         }
       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
@@ -87,15 +116,29 @@ public class Game {
          InputStream is = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
          BufferedReader br = new BufferedReader(new InputStreamReader(is));
          String line;
+         ArrayList tempQuestions = new ArrayList();
+         ArrayList tempAnswers = new ArrayList();
          while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             if (parts.length >= 6) {
                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               refactoringQuestions.addLast(question);
-               refactoringAnswers.addLast(parts[5]);
+               tempQuestions.add(question);
+               tempAnswers.add(parts[5]);
             }
          }
          br.close();
+         // Create indices and shuffle them to maintain question-answer pairing
+         ArrayList indices = new ArrayList();
+         for (int i = 0; i < tempQuestions.size(); i++) {
+            indices.add(i);
+         }
+         Collections.shuffle(indices);
+         // Add questions and answers in shuffled order
+         for (int i = 0; i < indices.size(); i++) {
+            int index = (Integer) indices.get(i);
+            refactoringQuestions.addLast(tempQuestions.get(index));
+            refactoringAnswers.addLast(tempAnswers.get(index));
+         }
       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
@@ -111,15 +154,29 @@ public class Game {
          InputStream is = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
          BufferedReader br = new BufferedReader(new InputStreamReader(is));
          String line;
+         ArrayList tempQuestions = new ArrayList();
+         ArrayList tempAnswers = new ArrayList();
          while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             if (parts.length >= 6) {
                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               testingQuestions.addLast(question);
-               testingAnswers.addLast(parts[5]);
+               tempQuestions.add(question);
+               tempAnswers.add(parts[5]);
             }
          }
          br.close();
+         // Create indices and shuffle them to maintain question-answer pairing
+         ArrayList indices = new ArrayList();
+         for (int i = 0; i < tempQuestions.size(); i++) {
+            indices.add(i);
+         }
+         Collections.shuffle(indices);
+         // Add questions and answers in shuffled order
+         for (int i = 0; i < indices.size(); i++) {
+            int index = (Integer) indices.get(i);
+            testingQuestions.addLast(tempQuestions.get(index));
+            testingAnswers.addLast(tempAnswers.get(index));
+         }
       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails

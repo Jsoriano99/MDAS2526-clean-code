@@ -1,0 +1,50 @@
+Who created the Java programming language?|a) James Gosling|b) Dennis Ritchie|c) Guido van Rossum|d) Bjarne Stroustrup|a
+What year was Python first released?|a) 1989|b) 1991|c) 1993|d) 1995|b
+Which company developed C#?|a) Oracle|b) Microsoft|c) Google|d) Apple|b
+What does SQL stand for?|a) Structured Query Language|b) Simple Query Language|c) Standard Query Language|d) System Query Language|a
+Who created the C programming language?|a) Ken Thompson|b) Dennis Ritchie|c) Brian Kernighan|d) Rob Pike|b
+What year was JavaScript first released?|a) 1993|b) 1995|c) 1997|d) 1999|b
+Which language is known as the "mother of all languages"?|a) COBOL|b) FORTRAN|c) ALGOL|d) LISP|b
+Who created Python?|a) Larry Wall|b) Guido van Rossum|c) Yukihiro Matsumoto|d) Larry Ellison|b
+What does PHP originally stand for?|a) Personal Home Page|b) Professional Hypertext Protocol|c) Private Homepage Platform|d) Public HTML Processor|a
+Which language was originally called "Oak"?|a) JavaScript|b) Java|c) C#|d) Kotlin|b
+Who created the Ruby programming language?|a) Yukihiro Matsumoto|b) Larry Wall|c) Guido van Rossum|d) James Gosling|a
+What year was C++ first released?|a) 1983|b) 1985|c) 1987|d) 1989|b
+Which language is used primarily for iOS development?|a) Objective-C|b) Swift|c) Kotlin|d) Java|b
+Who created JavaScript?|a) Brendan Eich|b) Douglas Crockford|c) John Resig|d) Ryan Dahl|a
+What does COBOL stand for?|a) Common Business-Oriented Language|b) Computer Business Operations Language|c) Commercial Business Operations Language|d) Corporate Business-Oriented Language|a
+Which language is known for its use in artificial intelligence?|a) Java|b) C++|c) Python|d) Ruby|c
+Who created C++?|a) Dennis Ritchie|b) Bjarne Stroustrup|c) Ken Thompson|d) Brian Kernighan|b
+What year was Go (Golang) first released?|a) 2007|b) 2009|c) 2011|d) 2013|b
+Which language is primarily used for Android development?|a) Swift|b) Objective-C|c) Kotlin|d) Dart|c
+Who created the Perl programming language?|a) Larry Wall|b) Guido van Rossum|c) Yukihiro Matsumoto|d) James Gosling|a
+What does HTML stand for?|a) HyperText Markup Language|b) High-Tech Markup Language|c) HyperText Management Language|d) Home Tool Markup Language|a
+Which language was created at Bell Labs?|a) Java|b) C|c) Python|d) Ruby|b
+Who created Swift?|a) Google|b) Microsoft|c) Apple|d) Oracle|c
+What year was FORTRAN first developed?|a) 1952|b) 1954|c) 1956|d) 1958|b
+Which language is known for its "write once, run anywhere" philosophy?|a) C++|b) Python|c) Java|d) C#|c
+Who created Kotlin?|a) Google|b) JetBrains|c) Oracle|d) Microsoft|b
+What does CSS stand for?|a) Computer Style Sheets|b) Cascading Style Sheets|c) Creative Style Sheets|d) Conditional Style Sheets|b
+Which language is used for R statistical computing?|a) R|b) S|c) SPSS|d) SAS|a
+Who created the Rust programming language?|a) Google|b) Mozilla|c) Facebook|d) Microsoft|b
+What year was Visual Basic first released?|a) 1989|b) 1991|c) 1993|d) 1995|b
+Which language is known for its significant whitespace?|a) Ruby|b) Python|c) Perl|d) JavaScript|b
+Who created LISP?|a) John Backus|b) John McCarthy|c) Niklaus Wirth|d) Alan Kay|b
+What does XML stand for?|a) eXtended Markup Language|b) eXtensible Markup Language|c) eXternal Markup Language|d) eXecutable Markup Language|b
+Which language was originally developed for system programming?|a) Java|b) Python|c) C|d) JavaScript|c
+Who created Scala?|a) Martin Odersky|b) James Gosling|c) Guido van Rossum|d) Yukihiro Matsumoto|a
+What year was TypeScript first released?|a) 2010|b) 2012|c) 2014|d) 2016|b
+Which language is known for its garbage collection feature?|a) C|b) C++|c) Java|d) Assembly|c
+Who created Erlang?|a) Joe Armstrong|b) Robert Virding|c) Mike Williams|d) All of the above|d
+What does JSON stand for?|a) JavaScript Object Notation|b) Java Standard Object Notation|c) JavaScript Ordered Notation|d) Java Serialized Object Notation|a
+Which language was designed for web development by Rasmus Lerdorf?|a) JavaScript|b) PHP|c) Ruby|d) Python|b
+Who created Haskell?|a) Philip Wadler|b) Simon Peyton Jones|c) Committee effort|d) Paul Hudak|c
+What year was BASIC first developed?|a) 1962|b) 1964|c) 1966|d) 1968|b
+Which language is known for its use in data science?|a) Java|b) C++|c) Python|d) JavaScript|c
+Who created Clojure?|a) Rich Hickey|b) Stuart Halloway|c) David Nolen|d) Alex Miller|a
+What does API stand for?|a) Application Programming Interface|b) Advanced Programming Interface|c) Application Protocol Interface|d) Automated Programming Interface|a
+Which language compiles to JavaScript?|a) CoffeeScript|b) TypeScript|c) Dart|d) All of the above|d
+Who created Pascal?|a) Niklaus Wirth|b) Edsger Dijkstra|c) Donald Knuth|d) Tony Hoare|a
+What year was Ruby first released?|a) 1993|b) 1995|c) 1997|d) 1999|b
+Which language is known for its use in blockchain development?|a) JavaScript|b) Python|c) Solidity|d) Java|c
+Who created F#?|a) Anders Hejlsberg|b) Don Syme|c) Scott Wiltamuth|d) Eric Meijer|b

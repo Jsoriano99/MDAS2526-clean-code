@@ -1,0 +1,50 @@
+Who wrote the book "Refactoring: Improving the Design of Existing Code"?|a) Robert Martin|b) Martin Fowler|c) Kent Beck|d) Eric Evans|b
+What is the first step before refactoring legacy code?|a) Write tests|b) Rewrite everything|c) Document the code|d) Add comments|a
+What is a "code smell"?|a) Bad variable names|b) A hint that something is wrong with code structure|c) Commented code|d) Long files|b
+What refactoring technique breaks down large methods?|a) Extract Class|b) Extract Method|c) Inline Method|d) Move Method|b
+What does the acronym DRY stand for?|a) Don't Repeat Yourself|b) Do Repeat Yourself|c) Don't Reuse Yourself|d) Define Reusable Yourself|a
+What is the "Red-Green-Refactor" cycle?|a) Code review process|b) TDD cycle|c) Deployment pipeline|d) Bug fixing process|b
+What code smell describes methods that are too long?|a) Large Class|b) Long Method|c) Data Clumps|d) Feature Envy|b
+What refactoring technique removes duplicate code?|a) Extract Method|b) Inline Method|c) Move Method|d) Rename Method|a
+What is "Extract Class" refactoring used for?|a) Creating inheritance|b) Breaking down large classes|c) Adding new features|d) Improving performance|b
+What does SOLID stand for in programming principles?|a) Software Object Logic in Design|b) Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion|c) Structured Object-oriented Logic in Development|d) System Organization Logic in Design|b
+What is the "Single Responsibility Principle"?|a) One method per class|b) One class per file|c) A class should have only one reason to change|d) One developer per class|c
+What code smell describes classes that do too much?|a) Data Class|b) Large Class|c) Lazy Class|d) Middle Man|b
+What refactoring technique improves variable names?|a) Extract Variable|b) Rename Variable|c) Inline Variable|d) Move Variable|b
+What is "Feature Envy" in code smells?|a) Too many features|b) Method more interested in another class than its own|c) Unused features|d) Complex features|b
+What refactoring technique eliminates long parameter lists?|a) Extract Method|b) Introduce Parameter Object|c) Remove Parameter|d) Add Parameter|b
+What is "Dead Code"?|a) Commented code|b) Old code|c) Code that is never executed|d) Broken code|c
+What refactoring technique combines similar methods?|a) Extract Superclass|b) Inline Method|c) Extract Method|d) Move Method|a
+What is "Shotgun Surgery" in code smells?|a) Fixing many bugs|b) One change requires many small changes across classes|c) Removing code|d) Adding new features|b
+What refactoring technique replaces magic numbers?|a) Extract Constant|b) Extract Variable|c) Introduce Parameter|d) Replace Magic Number with Symbolic Constant|d
+What is "Data Clumps" code smell?|a) Too much data|b) Groups of data always used together but not organized|c) Duplicate data|d) Missing data|b
+What refactoring technique simplifies conditional expressions?|a) Replace Conditional with Polymorphism|b) Decompose Conditional|c) Consolidate Conditional Expression|d) All of the above|d
+What is "Primitive Obsession"?|a) Using too many primitives|b) Using primitive data types instead of small objects|c) Avoiding object-oriented design|d) Using basic algorithms|b
+What refactoring technique removes comments that explain bad code?|a) Remove Comments|b) Extract Method|c) Add Documentation|d) Inline Comments|b
+What is "Speculative Generality"?|a) Too much inheritance|b) Creating code for future needs that never materialize|c) General-purpose classes|d) Abstract classes|b
+What refactoring technique moves methods to the right class?|a) Extract Method|b) Move Method|c) Extract Class|d) Inline Method|b
+What is "Inappropriate Intimacy" between classes?|a) Too much inheritance|b) Classes that know too much about each other's private details|c) Public fields|d) Static methods|b
+What refactoring technique eliminates temporary variables?|a) Inline Temp|b) Replace Temp with Query|c) Extract Variable|d) Remove Temp|b
+What is "Refused Bequest" in inheritance?|a) Not using inheritance|b) Subclasses that don't use inherited methods or data|c) Multiple inheritance|d) Abstract classes|b
+What refactoring technique improves method signatures?|a) Rename Method|b) Change Method Signature|c) Extract Method|d) Add Parameter|b
+What is "Middle Man" code smell?|a) Mediator pattern|b) Class that delegates most work to another class|c) Intermediate classes|d) Bridge pattern|b
+What refactoring technique removes unnecessary inheritance?|a) Replace Inheritance with Delegation|b) Extract Superclass|c) Pull Up Method|d) Push Down Method|a
+What is "Lazy Class"?|a) Singleton pattern|b) Class that doesn't do enough to justify its existence|c) Static class|d) Utility class|b
+What refactoring technique consolidates duplicate classes?|a) Extract Superclass|b) Collapse Hierarchy|c) Extract Interface|d) Move Class|b
+What is "Switch Statements" code smell?|a) Too many if statements|b) Complex switch statements that should use polymorphism|c) Missing switch statements|d) Nested switches|b
+What refactoring technique replaces type codes?|a) Replace Type Code with Class|b) Replace Type Code with State/Strategy|c) Replace Type Code with Subclasses|d) All of the above|d
+What is "Parallel Inheritance Hierarchies"?|a) Multiple inheritance|b) When subclassing one class requires subclassing another|c) Diamond inheritance|d) Interface inheritance|b
+What refactoring technique simplifies algorithms?|a) Extract Method|b) Substitute Algorithm|c) Inline Method|d) Optimize Algorithm|b
+What is "Alternative Classes with Different Interfaces"?|a) Multiple inheritance|b) Classes that do the same thing but have different method signatures|c) Interface implementations|d) Abstract classes|b
+What refactoring technique removes one-line methods?|a) Extract Method|b) Inline Method|c) Remove Method|d) Merge Methods|b
+What is "Incomplete Library Class"?|a) Missing methods|b) Library that doesn't provide all needed functionality|c) Broken library|d) Old library|b
+What refactoring technique moves data closer to code that uses it?|a) Move Field|b) Move Method|c) Extract Class|d) Inline Class|a
+What is "Data Class"?|a) Database class|b) Class that only holds data with no behavior|c) Serializable class|d) Value object|b
+What refactoring technique eliminates flag parameters?|a) Remove Parameter|b) Replace Parameter with Explicit Methods|c) Extract Method|d) Add Parameter|b
+What is "Comments" as a code smell?|a) Too many comments|b) Comments that compensate for bad code|c) No comments|d) Outdated comments|b
+What refactoring technique breaks up complex methods?|a) Extract Method|b) Inline Method|c) Split Method|d) Decompose Method|a
+What is "Divergent Change" code smell?|a) Many changes|b) Class needs to be changed for multiple different reasons|c) Conflicting changes|d) Frequent changes|b
+What refactoring technique creates methods from code fragments?|a) Extract Method|b) Create Method|c) Generate Method|d) Build Method|a
+What is the main goal of refactoring?|a) Add new features|b) Improve code structure without changing external behavior|c) Fix bugs|d) Improve performance|b
+What refactoring technique removes duplicate inheritance?|a) Extract Superclass|b) Remove Inheritance|c) Collapse Hierarchy|d) Flatten Hierarchy|a
+What is "Message Chains" code smell?|a) Too many methods|b) Long chains of method calls like a.getB().getC().getD()|c) Method overloading|d) Recursive calls|b

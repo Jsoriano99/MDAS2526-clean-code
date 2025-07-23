@@ -1,0 +1,50 @@
+What year was the first computer bug discovered by Grace Hopper?|a) 1945|b) 1947|c) 1949|d) 1951|b
+Who is credited with coining the term "software engineering"?|a) Grace Hopper|b) Alan Turing|c) Margaret Hamilton|d) Ada Lovelace|c
+What does ENIAC stand for?|a) Electronic Numerical Integrator and Computer|b) Electronic Network Integration and Control|c) Enhanced Numerical Interface and Calculator|d) Electronic Number Intelligence and Computing|a
+In what year was the World Wide Web invented?|a) 1987|b) 1989|c) 1991|d) 1993|b
+Who created the first compiler?|a) Ada Lovelace|b) Alan Turing|c) Grace Hopper|d) John von Neumann|c
+What year was the term "debugging" first used in computing?|a) 1945|b) 1947|c) 1949|d) 1951|b
+Who founded Microsoft with Bill Gates?|a) Steve Wozniak|b) Paul Allen|c) Larry Ellison|d) Michael Dell|b
+What was the first commercially available microprocessor?|a) Intel 4004|b) Intel 8008|c) Motorola 6800|d) AMD 8080|a
+In what year was UNIX first developed?|a) 1967|b) 1969|c) 1971|d) 1973|b
+Who created the World Wide Web?|a) Vint Cerf|b) Ray Tomlinson|c) Tim Berners-Lee|d) Marc Andreessen|c
+What year was the first iPhone released?|a) 2005|b) 2006|c) 2007|d) 2008|c
+Who developed the first version of Linux?|a) Richard Stallman|b) Linus Torvalds|c) Andrew Tanenbaum|d) Dennis Ritchie|b
+What does IBM originally stand for?|a) International Business Machines|b) Integrated Business Management|c) International Banking Machines|d) Industrial Business Manufacturing|a
+In what year was Google founded?|a) 1996|b) 1997|c) 1998|d) 1999|c
+Who invented the mouse for computers?|a) Douglas Engelbart|b) Steve Jobs|c) Alan Kay|d) Ivan Sutherland|a
+What year was the term "computer virus" first used?|a) 1981|b) 1983|c) 1985|d) 1987|b
+Who created the first web browser?|a) Marc Andreessen|b) Tim Berners-Lee|c) Vint Cerf|d) Larry Page|b
+What was the first programming language?|a) FORTRAN|b) COBOL|c) Assembly language|d) BASIC|c
+In what year was Facebook launched?|a) 2003|b) 2004|c) 2005|d) 2006|b
+Who founded Apple Computer with Steve Jobs?|a) Steve Wozniak|b) John Sculley|c) Mike Markkula|d) Ronald Wayne|a
+What year was the Internet invented?|a) 1967|b) 1969|c) 1971|d) 1973|b
+Who created the first spreadsheet program?|a) Bob Frankston|b) Dan Bricklin|c) Bill Gates|d) Paul Allen|b
+What was the name of the first spreadsheet program?|a) Lotus 1-2-3|b) Excel|c) VisiCalc|d) SuperCalc|c
+In what year was YouTube founded?|a) 2004|b) 2005|c) 2006|d) 2007|b
+Who developed the concept of hypertext?|a) Tim Berners-Lee|b) Ted Nelson|c) Vannevar Bush|d) Douglas Engelbart|b
+What year was the first domain name registered?|a) 1983|b) 1985|c) 1987|d) 1989|b
+Who created the concept of object-oriented programming?|a) Alan Kay|b) Bjarne Stroustrup|c) James Gosling|d) Niklaus Wirth|a
+What was the first computer with a graphical user interface?|a) Apple Lisa|b) Xerox Star|c) Apple Macintosh|d) Commodore Amiga|b
+In what year was Amazon founded?|a) 1993|b) 1994|c) 1995|d) 1996|b
+Who invented the integrated circuit?|a) Jack Kilby|b) Robert Noyce|c) Gordon Moore|d) Intel Corporation|a
+What year was the first email sent?|a) 1969|b) 1971|c) 1973|d) 1975|b
+Who created the first computer game?|a) Nolan Bushnell|b) William Higinbotham|c) Steve Russell|d) Ralph Baer|b
+What does ASCII stand for?|a) American Standard Code for Information Interchange|b) Advanced Standard Code for Information Integration|c) American System Code for Information Interface|d) Automated Standard Code for Information Input|a
+In what year was the first computer built?|a) 1941|b) 1943|c) 1945|d) 1947|b
+Who invented the transistor?|a) John Bardeen and team|b) Jack Kilby|c) Robert Noyce|d) Gordon Moore|a
+What year was the first computer virus created?|a) 1980|b) 1982|c) 1984|d) 1986|b
+Who founded Oracle Corporation?|a) Larry Page|b) Larry Ellison|c) Marc Benioff|d) Scott McNealy|b
+What was the first personal computer?|a) Apple II|b) Commodore PET|c) Altair 8800|d) IBM PC|c
+In what year was Twitter launched?|a) 2005|b) 2006|c) 2007|d) 2008|b
+Who created the first word processor?|a) Evelyn Berezin|b) Larry Tesler|c) Doug Engelbart|d) Bob Metcalfe|a
+What year was the first hard disk drive invented?|a) 1954|b) 1956|c) 1958|d) 1960|b
+Who developed the concept of the stored-program computer?|a) Alan Turing|b) John von Neumann|c) Claude Shannon|d) Norbert Wiener|b
+What was the first computer programming book?|a) "The Art of Computer Programming"|b) "Introduction to Algorithms"|c) "The Preparation of Programs for an Electronic Digital Computer"|d) "Structure and Interpretation of Computer Programs"|c
+In what year was Netflix founded?|a) 1996|b) 1997|c) 1998|d) 1999|b
+Who created the first computer network?|a) ARPA|b) IBM|c) AT&T|d) Xerox|a
+What year was the first website created?|a) 1989|b) 1990|c) 1991|d) 1992|b
+Who invented the floppy disk?|a) Alan Shugart|b) An Wang|c) Federico Faggin|d) Marcian Hoff|a
+What was the first social networking site?|a) Friendster|b) MySpace|c) Six Degrees|d) LiveJournal|c
+In what year was PayPal founded?|a) 1997|b) 1998|c) 1999|d) 2000|b
+Who created the first antivirus software?|a) John McAfee|b) Peter Norton|c) Bernd Fix|d) Eugene Kaspersky|c

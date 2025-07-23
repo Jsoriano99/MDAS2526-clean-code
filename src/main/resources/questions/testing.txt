@@ -1,0 +1,50 @@
+What does TDD stand for?|a) Test-Driven Development|b) Test-Data Development|c) Technical Design Document|d) Test-Debug-Deploy|a
+What does BDD stand for?|a) Bug-Driven Development|b) Behavior-Driven Development|c) Build-Deploy-Debug|d) Binary Data Development|b
+Who created the concept of Test-Driven Development?|a) Martin Fowler|b) Kent Beck|c) Robert Martin|d) Ward Cunningham|b
+What are the three phases of TDD?|a) Write, Test, Deploy|b) Plan, Code, Test|c) Red, Green, Refactor|d) Design, Implement, Verify|c
+What is a unit test?|a) Test for the entire system|b) Test that verifies a single component in isolation|c) Test for user interface|d) Test for database|b
+What is an integration test?|a) Test for individual components|b) Test that verifies multiple components working together|c) Test for user interface|d) Test for performance|b
+What is an end-to-end test?|a) Test from start to finish of development|b) Test that verifies complete user workflows|c) Test for individual methods|d) Test for database connections|b
+What is a mock object?|a) Fake data|b) Test double that records how it was called|c) Sample object|d) Temporary object|b
+What is a stub?|a) Incomplete code|b) Test double that returns predefined responses|c) Error handler|d) Placeholder method|b
+What does AAA stand for in testing?|a) Always Assert Accurately|b) Arrange, Act, Assert|c) Automated Acceptance Analysis|d) All About Assertions|b
+What is code coverage?|a) Amount of code written|b) Percentage of code executed during testing|c) Number of test cases|d) Quality of test data|b
+What is mutation testing?|a) Testing with random data|b) Testing technique that modifies code to test the quality of tests|c) Testing inherited classes|d) Testing configuration changes|b
+What is a test fixture?|a) Hardware for testing|b) Fixed state used as baseline for running tests|c) Test framework|d) Testing tool|b
+What is regression testing?|a) Testing backwards compatibility|b) Testing to ensure new changes don't break existing functionality|c) Testing performance degradation|d) Testing with old data|b
+What is a flaky test?|a) Unreliable test framework|b) Test that sometimes passes and sometimes fails without code changes|c) Test with bad data|d) Slow test|b
+What is property-based testing?|a) Testing object properties|b) Testing with randomly generated inputs based on properties|c) Testing configuration properties|d) Testing class attributes|b
+What is a test pyramid?|a) Hierarchical test organization|b) Strategy with many unit tests, some integration tests, few UI tests|c) Test prioritization method|d) Test execution order|b
+What is smoke testing?|a) Performance testing|b) Basic testing to verify the system works at a fundamental level|c) Security testing|d) Load testing|b
+What is load testing?|a) Testing file uploads|b) Testing system behavior under expected load conditions|c) Testing memory usage|d) Testing startup time|b
+What is stress testing?|a) Testing under pressure|b) Testing system behavior beyond normal operating capacity|c) Testing error conditions|d) Testing with minimal resources|b
+What is a test harness?|a) Testing hardware|b) Collection of software and test data for testing a program|c) Test execution framework|d) Test management tool|b
+What is acceptance testing?|a) Testing user acceptance|b) Testing to determine if system meets business requirements|c) Testing by customers|d) Testing final product|b
+What is black box testing?|a) Testing in dark environments|b) Testing without knowledge of internal structure|c) Testing hidden features|d) Testing error conditions|b
+What is white box testing?|a) Testing visible features|b) Testing with full knowledge of internal structure|c) Testing user interface|d) Testing documentation|b
+What is a test oracle?|a) Testing expert|b) Mechanism to determine if test passed or failed|c) Test database|d) Test prediction tool|b
+What is exploratory testing?|a) Testing new features|b) Simultaneous learning, test design, and test execution|c) Testing unknown systems|d) Testing without documentation|b
+What is a test case?|a) Test container|b) Set of conditions to determine if system works correctly|c) Test scenario|d) Test example|b
+What is a test suite?|a) Testing software package|b) Collection of test cases|c) Test environment|d) Test framework|b
+What is automated testing?|a) Self-running tests|b) Testing performed by software tools rather than humans|c) Machine learning testing|d) AI-powered testing|b
+What is manual testing?|a) Testing documentation|b) Testing performed by human testers|c) Testing with tools|d) Testing procedures|b
+What is performance testing?|a) Testing speed|b) Testing to determine system performance characteristics|c) Testing efficiency|d) Testing optimization|b
+What is security testing?|a) Testing passwords|b) Testing to identify vulnerabilities and security flaws|c) Testing access control|d) Testing encryption|b
+What is usability testing?|a) Testing functionality|b) Testing to evaluate user experience and interface design|c) Testing features|d) Testing requirements|b
+What is compatibility testing?|a) Testing versions|b) Testing to ensure software works across different environments|c) Testing integrations|d) Testing standards|b
+What is a test double?|a) Duplicate test|b) Generic term for test objects that replace production objects|c) Second test run|d) Backup test|b
+What is approval testing?|a) Testing with approval|b) Testing by comparing current output with previously approved output|c) Testing authorization|d) Testing permissions|b
+What is boundary testing?|a) Testing limits|b) Testing at the edges of input domains|c) Testing boundaries|d) Testing constraints|b
+What is equivalence partitioning?|a) Dividing tests equally|b) Dividing input data into equivalent groups for testing|c) Separating test cases|d) Grouping similar tests|b
+What is a false positive in testing?|a) Wrong test result|b) Test that fails but shouldn't|c) Positive test outcome|d) Correct test result|b
+What is a false negative in testing?|a) Wrong test result|b) Test that passes but shouldn't|c) Negative test outcome|d) Missing test|b
+What is test isolation?|a) Testing alone|b) Ensuring tests don't depend on or affect each other|c) Separate test environments|d) Independent testing|b
+What is a test runner?|a) Testing person|b) Tool that executes tests and reports results|c) Test automation|d) Test scheduler|b
+What is continuous testing?|a) Non-stop testing|b) Testing integrated into continuous integration pipeline|c) Always-on testing|d) Constant testing|b
+What is shift-left testing?|a) Testing on left side|b) Moving testing earlier in the development process|c) Testing before coding|d) Left-handed testing|b
+What is canary testing?|a) Testing with canaries|b) Releasing to small subset of users before full deployment|c) Yellow testing|d) Warning testing|b
+What is A/B testing?|a) Testing with two teams|b) Comparing two versions to determine which performs better|c) Testing alternatives|d) Binary testing|b
+What is monkey testing?|a) Testing with monkeys|b) Random inputs provided to test system stability|c) Chaotic testing|d) Wild testing|b
+What is contract testing?|a) Testing agreements|b) Testing API contracts between services|c) Testing legal terms|d) Testing documentation|b
+What is snapshot testing?|a) Testing quickly|b) Testing by comparing current output with stored snapshots|c) Testing images|d) Testing captures|b
+What is test data management?|a) Managing test files|b) Process of creating and maintaining data for testing purposes|c) Database testing|d) Data organization|b

@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'info.solidsoft.pitest'
 
 group = 'com.diamantetechcoaching'
@@ -50,4 +51,12 @@ pitest {
     mutators = ['ALL']
     jvmArgs = ['-Xmx1024m']
     reportDir = file("${project.layout.buildDirectory.get()}/reports/pitest")
+}
+
+application {
+    mainClass = 'com.diamantetechcoaching.PlayGame'
+}
+
+run {
+    standardInput = System.in
 }

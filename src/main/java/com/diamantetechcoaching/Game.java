@@ -10,10 +10,16 @@ import java.io.InputStreamReader;
 import java.util.Collections;
 
 public class Game {
+   // Clean Code Naming: Meaningful constants instead of Magic Numbers
+   private static final int MAX_PLAYERS = 6;
+   private static final int BOARD_SIZE = 12;
+   private static final int WINNING_COINS_COUNT = 6;
+
    ArrayList players = new ArrayList();
-   int[] places = new int[6];
-   int[] purses = new int[6];
-   boolean[] inPenaltyBox = new boolean[6];
+   // Clean Code Naming: Intention-Revealing Names (domain concepts)
+   int[] boardPositions = new int[MAX_PLAYERS];
+   int[] coins = new int[MAX_PLAYERS];
+   boolean[] inPenaltyBox = new boolean[MAX_PLAYERS];
 
    LinkedList softwareHistoryQuestions = new LinkedList();
    LinkedList programmingLanguagesQuestions = new LinkedList();
@@ -37,31 +43,32 @@ public class Game {
    
    private void loadSoftwareHistoryQuestions() {
       try {
-         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
-         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-         String line;
-         ArrayList tempQuestions = new ArrayList();
-         ArrayList tempAnswers = new ArrayList();
-         while ((line = br.readLine()) != null) {
+InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
+          // Clean Code Naming: Nombres pronunciables en vez de iniciales
+          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+          String line;
+          ArrayList unshuffledQuestions = new ArrayList();
+          ArrayList unshuffledAnswers = new ArrayList();
+         while ((line = reader.readLine()) != null) {
             String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
-               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               tempQuestions.add(question);
-               tempAnswers.add(parts[5]);
-            }
-         }
-         br.close();
-         // Create indices and shuffle them to maintain question-answer pairing
-         ArrayList indices = new ArrayList();
-         for (int i = 0; i < tempQuestions.size(); i++) {
-            indices.add(i);
-         }
-         Collections.shuffle(indices);
-         // Add questions and answers in shuffled order
-         for (int i = 0; i < indices.size(); i++) {
-            int index = (Integer) indices.get(i);
-            softwareHistoryQuestions.addLast(tempQuestions.get(index));
-            softwareHistoryAnswers.addLast(tempAnswers.get(index));
+if (parts.length >= 6) {
+                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+                unshuffledQuestions.add(question);
+                unshuffledAnswers.add(parts[5]);
+             }
+          }
+          reader.close();
+          // Create indices and shuffle them to maintain question-answer pairing
+          ArrayList shuffledIndices = new ArrayList();
+          for (int i = 0; i < unshuffledQuestions.size(); i++) {
+             shuffledIndices.add(i);
+          }
+          Collections.shuffle(shuffledIndices);
+          // Add questions and answers in shuffled order
+          for (int i = 0; i < shuffledIndices.size(); i++) {
+             int index = (Integer) shuffledIndices.get(i);
+             softwareHistoryQuestions.addLast(unshuffledQuestions.get(index));
+             softwareHistoryAnswers.addLast(unshuffledAnswers.get(index));
          }
       } catch (IOException e) {
          e.printStackTrace();
@@ -73,35 +80,36 @@ public class Game {
       }
    }
    
-   private void loadProgrammingLanguagesQuestions() {
-      try {
-         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/programming_languages.txt");
-         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-         String line;
-         ArrayList tempQuestions = new ArrayList();
-         ArrayList tempAnswers = new ArrayList();
-         while ((line = br.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
-               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               tempQuestions.add(question);
-               tempAnswers.add(parts[5]);
-            }
-         }
-         br.close();
-         // Create indices and shuffle them to maintain question-answer pairing
-         ArrayList indices = new ArrayList();
-         for (int i = 0; i < tempQuestions.size(); i++) {
-            indices.add(i);
-         }
-         Collections.shuffle(indices);
-         // Add questions and answers in shuffled order
-         for (int i = 0; i < indices.size(); i++) {
-            int index = (Integer) indices.get(i);
-            programmingLanguagesQuestions.addLast(tempQuestions.get(index));
-            programmingLanguagesAnswers.addLast(tempAnswers.get(index));
-         }
-      } catch (IOException e) {
+private void loadProgrammingLanguagesQuestions() {
+       try {
+          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/programming_languages.txt");
+          // Clean Code Naming: Nombres pronunciables en vez de iniciales
+          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+          String line;
+          ArrayList unshuffledQuestions = new ArrayList();
+          ArrayList unshuffledAnswers = new ArrayList();
+          while ((line = reader.readLine()) != null) {
+             String[] parts = line.split("\\|");
+             if (parts.length >= 6) {
+                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+                unshuffledQuestions.add(question);
+                unshuffledAnswers.add(parts[5]);
+             }
+          }
+          reader.close();
+          // Create indices and shuffle them to maintain question-answer pairing
+          ArrayList shuffledIndices = new ArrayList();
+          for (int i = 0; i < unshuffledQuestions.size(); i++) {
+             shuffledIndices.add(i);
+          }
+          Collections.shuffle(shuffledIndices);
+          // Add questions and answers in shuffled order
+          for (int i = 0; i < shuffledIndices.size(); i++) {
+             int index = (Integer) shuffledIndices.get(i);
+             programmingLanguagesQuestions.addLast(unshuffledQuestions.get(index));
+             programmingLanguagesAnswers.addLast(unshuffledAnswers.get(index));
+          }
+       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
          for (int i = 0; i < 50; i++) {
@@ -111,35 +119,36 @@ public class Game {
       }
    }
    
-   private void loadRefactoringQuestions() {
-      try {
-         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
-         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-         String line;
-         ArrayList tempQuestions = new ArrayList();
-         ArrayList tempAnswers = new ArrayList();
-         while ((line = br.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
-               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               tempQuestions.add(question);
-               tempAnswers.add(parts[5]);
-            }
-         }
-         br.close();
-         // Create indices and shuffle them to maintain question-answer pairing
-         ArrayList indices = new ArrayList();
-         for (int i = 0; i < tempQuestions.size(); i++) {
-            indices.add(i);
-         }
-         Collections.shuffle(indices);
-         // Add questions and answers in shuffled order
-         for (int i = 0; i < indices.size(); i++) {
-            int index = (Integer) indices.get(i);
-            refactoringQuestions.addLast(tempQuestions.get(index));
-            refactoringAnswers.addLast(tempAnswers.get(index));
-         }
-      } catch (IOException e) {
+private void loadRefactoringQuestions() {
+       try {
+          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
+          // Clean Code Naming: Nombres pronunciables en vez de iniciales
+          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+          String line;
+          ArrayList unshuffledQuestions = new ArrayList();
+          ArrayList unshuffledAnswers = new ArrayList();
+          while ((line = reader.readLine()) != null) {
+             String[] parts = line.split("\\|");
+             if (parts.length >= 6) {
+                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+                unshuffledQuestions.add(question);
+                unshuffledAnswers.add(parts[5]);
+             }
+          }
+          reader.close();
+          // Create indices and shuffle them to maintain question-answer pairing
+          ArrayList shuffledIndices = new ArrayList();
+          for (int i = 0; i < unshuffledQuestions.size(); i++) {
+             shuffledIndices.add(i);
+          }
+          Collections.shuffle(shuffledIndices);
+          // Add questions and answers in shuffled order
+          for (int i = 0; i < shuffledIndices.size(); i++) {
+             int index = (Integer) shuffledIndices.get(i);
+             refactoringQuestions.addLast(unshuffledQuestions.get(index));
+             refactoringAnswers.addLast(unshuffledAnswers.get(index));
+          }
+       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
          for (int i = 0; i < 50; i++) {
@@ -149,35 +158,36 @@ public class Game {
       }
    }
    
-   private void loadTestingQuestions() {
-      try {
-         InputStream is = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
-         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-         String line;
-         ArrayList tempQuestions = new ArrayList();
-         ArrayList tempAnswers = new ArrayList();
-         while ((line = br.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
-               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               tempQuestions.add(question);
-               tempAnswers.add(parts[5]);
-            }
-         }
-         br.close();
-         // Create indices and shuffle them to maintain question-answer pairing
-         ArrayList indices = new ArrayList();
-         for (int i = 0; i < tempQuestions.size(); i++) {
-            indices.add(i);
-         }
-         Collections.shuffle(indices);
-         // Add questions and answers in shuffled order
-         for (int i = 0; i < indices.size(); i++) {
-            int index = (Integer) indices.get(i);
-            testingQuestions.addLast(tempQuestions.get(index));
-            testingAnswers.addLast(tempAnswers.get(index));
-         }
-      } catch (IOException e) {
+private void loadTestingQuestions() {
+       try {
+          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
+          // Clean Code Naming: Nombres pronunciables en vez de iniciales
+          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+          String line;
+          ArrayList unshuffledQuestions = new ArrayList();
+          ArrayList unshuffledAnswers = new ArrayList();
+          while ((line = reader.readLine()) != null) {
+             String[] parts = line.split("\\|");
+             if (parts.length >= 6) {
+                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+                unshuffledQuestions.add(question);
+                unshuffledAnswers.add(parts[5]);
+             }
+          }
+          reader.close();
+          // Create indices and shuffle them to maintain question-answer pairing
+          ArrayList shuffledIndices = new ArrayList();
+          for (int i = 0; i < unshuffledQuestions.size(); i++) {
+             shuffledIndices.add(i);
+          }
+          Collections.shuffle(shuffledIndices);
+          // Add questions and answers in shuffled order
+          for (int i = 0; i < shuffledIndices.size(); i++) {
+             int index = (Integer) shuffledIndices.get(i);
+             testingQuestions.addLast(unshuffledQuestions.get(index));
+             testingAnswers.addLast(unshuffledAnswers.get(index));
+          }
+       } catch (IOException e) {
          e.printStackTrace();
          // Fallback questions if file reading fails
          for (int i = 0; i < 50; i++) {
@@ -204,8 +214,8 @@ public class Game {
    }
 
    public boolean add(String playerName) {
-      places[howManyPlayers()] = 1;
-      purses[howManyPlayers()] = 0;
+      boardPositions[howManyPlayers()] = 1;
+      coins[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
       players.add(playerName);
 
@@ -227,12 +237,12 @@ public class Game {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+            boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
+            if (boardPositions[currentPlayer] > BOARD_SIZE) boardPositions[currentPlayer] = boardPositions[currentPlayer] - BOARD_SIZE;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
-                               + places[currentPlayer]);
+                               + boardPositions[currentPlayer]);
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
@@ -242,12 +252,12 @@ public class Game {
 
       } else {
 
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+         boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
+         if (boardPositions[currentPlayer] > BOARD_SIZE) boardPositions[currentPlayer] = boardPositions[currentPlayer] - BOARD_SIZE;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
-                            + places[currentPlayer]);
+                            + boardPositions[currentPlayer]);
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -275,15 +285,15 @@ public class Game {
 
 
    private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Software History";
-      if (places[currentPlayer] - 1 == 4) return "Software History";
-      if (places[currentPlayer] - 1 == 8) return "Software History";
-      if (places[currentPlayer] - 1 == 1) return "Programming Languages";
-      if (places[currentPlayer] - 1 == 5) return "Programming Languages";
-      if (places[currentPlayer] - 1 == 9) return "Programming Languages";
-      if (places[currentPlayer] - 1 == 2) return "Refactoring";
-      if (places[currentPlayer] - 1 == 6) return "Refactoring";
-      if (places[currentPlayer] - 1 == 10) return "Refactoring";
+      if (boardPositions[currentPlayer] - 1 == 0) return "Software History";
+      if (boardPositions[currentPlayer] - 1 == 4) return "Software History";
+      if (boardPositions[currentPlayer] - 1 == 8) return "Software History";
+      if (boardPositions[currentPlayer] - 1 == 1) return "Programming Languages";
+      if (boardPositions[currentPlayer] - 1 == 5) return "Programming Languages";
+      if (boardPositions[currentPlayer] - 1 == 9) return "Programming Languages";
+      if (boardPositions[currentPlayer] - 1 == 2) return "Refactoring";
+      if (boardPositions[currentPlayer] - 1 == 6) return "Refactoring";
+      if (boardPositions[currentPlayer] - 1 == 10) return "Refactoring";
       return "Testing";
    }
 
@@ -291,13 +301,13 @@ public class Game {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
-            purses[currentPlayer]++;
+            coins[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                                + " now has "
-                               + purses[currentPlayer]
+                               + coins[currentPlayer]
                                + " Gold Coins.");
 
-            boolean winner = didPlayerWin();
+            boolean winner = isGameInProgress();
             currentPlayer++;
             if (currentPlayer == players.size()) currentPlayer = 0;
 
@@ -312,13 +322,13 @@ public class Game {
       } else {
 
          System.out.println("Answer was corrent!!!!");
-         purses[currentPlayer]++;
+         coins[currentPlayer]++;
          System.out.println(players.get(currentPlayer)
                             + " now has "
-                            + purses[currentPlayer]
+                            + coins[currentPlayer]
                             + " Gold Coins.");
 
-         boolean winner = didPlayerWin();
+         boolean winner = isGameInProgress();
          currentPlayer++;
          if (currentPlayer == players.size()) currentPlayer = 0;
 
@@ -337,7 +347,8 @@ public class Game {
    }
 
 
-   private boolean didPlayerWin() {
-      return !(purses[currentPlayer] == 6);
+   // Clean Code Naming: El nombre anterior era engañoso (Disinformation)
+   private boolean isGameInProgress() {
+      return !(coins[currentPlayer] == WINNING_COINS_COUNT);
    }
 }

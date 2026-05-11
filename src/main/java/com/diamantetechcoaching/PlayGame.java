@@ -17,34 +17,34 @@ public class PlayGame {
       if (playerCount < 1 || playerCount > 4) throw new IllegalArgumentException("No player 1..4");
       System.out.println("Reading names for " + playerCount + " players:");
 
-      Game aGame = new Game();
+      Game game = new Game();
 
       for (int i = 1; i <= playerCount; i++) {
          System.out.print("Player "+i+" name: ");
          String playerName = scanner.nextLine();
-         aGame.add(playerName);
+         game.add(playerName);
       }
 
       System.out.println("\n\n--Starting game--");
 
 
-      boolean notAWinner;
-      do {
-         int roll = readRoll();
-         aGame.roll(roll);
+      boolean gameInProgress;
+do {
+          int roll = readRoll();
+          game.roll(roll);
 
-         System.out.print(">> Enter your answer [a/b/c/d]: ");
-         String playerAnswer = readAnswer();
-         boolean correct = aGame.checkAnswer(playerAnswer);
-         if (correct) {
-            System.out.println(">> Correct! The answer was " + aGame.getCorrectAnswer());
-            notAWinner = aGame.handleCorrectAnswer();
-         } else {
-            System.out.println(">> Wrong! The correct answer was " + aGame.getCorrectAnswer());
-            notAWinner = aGame.wrongAnswer();
-         }
+          System.out.print(">> Enter your answer [a/b/c/d]: ");
+          String playerAnswer = readAnswer();
+          boolean correct = game.checkAnswer(playerAnswer);
+          if (correct) {
+             System.out.println(">> Correct! The answer was " + game.getCorrectAnswer());
+             gameInProgress = game.handleCorrectAnswer();
+          } else {
+             System.out.println(">> Wrong! The correct answer was " + game.getCorrectAnswer());
+             gameInProgress = game.wrongAnswer();
+          }
 
-      } while (notAWinner);
+       } while (gameInProgress);
       System.out.println(">> Game won!");
    }
 

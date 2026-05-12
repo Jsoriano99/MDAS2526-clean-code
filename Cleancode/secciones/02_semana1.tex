@@ -1,0 +1,106 @@
+En esta semana nos enfocamos en aplicar las reglas de nombrado definidas en el capítulo 2 de *Clean Code* de Robert C. Martin. El objetivo fue transformar nombres vagos, engañosos o mágicos en nombres que revelen intención y pertenezcan al dominio del problema.
+
+\section{Tabla Resumen de Cambios de Naming}
+
+La siguiente tabla documenta todos los cambios de nombrado realizados durante la Semana 1. Se recomienda consultarla como referencia de trazabilidad durante las revisiones de código.
+
+\begin{table}[h]
+\small
+\centering
+\caption{Registro de cambios de nombrado — Semana 1}
+\label{tab:semana1-cambios}
+\begin{tabular}{|p{2.5cm}|c|p{2.8cm}|p{3cm}|p{2.5cm}|p{4cm}|}
+\hline
+\textbf{Archivo} & \textbf{Línea} & \textbf{Nombre Original} & \textbf{Nuevo Nombre} & \textbf{Regla Aplicada} & \textbf{Justificación} \\
+\hline
+\multirow{4}{*}{Game.java}
+  & -- & \texttt{places} & \texttt{boardPositions} & Domain Names & "places" es genérico; "boardPositions" revela que son las posiciones de los jugadores en el tablero \\ \cline{2-6}
+  & -- & \texttt{purses} & \texttt{coins} & Domain Names & "purses" no pertenece al dominio del juego; "coins" refleja las monedas de oro del juego \\ \cline{2-6}
+  & -- & \texttt{is} & \texttt{inputStream} & Pronounceable & "is" se confunde con el verbo \textit{is} de Java; "inputStream" se pronuncia y se busca en IDE \\ \cline{2-6}
+  & -- & \texttt{br} & \texttt{reader} & Pronounceable & "br" es una inicial no pronunciable; "reader" describe su función \\ \cline{2-6}
+  & -- & \texttt{tempQuestions} & \texttt{unshuffledQuestions} & Intention-Revealing & "temp" no aporta contexto; "unshuffled" indica el estado antes de barajar \\ \cline{2-6}
+  & -- & \texttt{tempAnswers} & \texttt{unshuffledAnswers} & Intention-Revealing & Mismo principio que tempQuestions \\ \cline{2-6}
+  & -- & \texttt{indices} & \texttt{shuffledIndices} & Intention-Revealing & "indices" es genérico; "shuffledIndices" indica que están desordenados \\ \cline{2-6}
+  & -- & \texttt{didPlayerWin()} & \texttt{isGameInProgress()} & Avoid Disinformation & \textcolor{red}{ERROR CRÍTICO}: el nombre decía "¿ganó?" pero devolvía \texttt{true} cuando NO ganó \\ \cline{2-6}
+  & -- & \texttt{6} (cond. ganar) & \texttt{WINNING\_COINS\_COUNT} & Magic Numbers & Número hardcodeado sin significado; la constante auto-documenta su propósito \\ \cline{2-6}
+  & -- & \texttt{6} (tamaño arrays) & \texttt{MAX\_PLAYERS} & Magic Numbers & Mismo valor mágico repetido en 3 lugares \\ \cline{2-6}
+  & -- & \texttt{12} (comparación) & \texttt{BOARD\_SIZE} & Magic Numbers & Número mágico que define el tamaño del tablero \\
+\hline
+\multirow{2}{*}{PlayGame.java}
+  & -- & \texttt{aGame} & \texttt{game} & Simplicity & Nombre abreviado innecesario \\ \cline{2-6}
+  & -- & \texttt{notAWinner} & \texttt{gameInProgress} & Avoid Disinformation & Doble negación confusa; "gameInProgress" es semánticamente directo \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Detalle de Cambios Significativos}
+
+\subsection{Cambio Crítico: \texttt{didPlayerWin()} $\rightarrow$ \texttt{isGameInProgress()}}
+
+Este fue el cambio más importante de la semana. El método original contenía un \textcolor{red}{error de desinformación}:
+
+\begin{lstlisting}[caption={BEFORE: Nombre engañoso con lógica invertida}, label=lst:critico_antes]
+private boolean didPlayerWin() {
+   // El nombre dice "¿ganó el jugador?"
+   // PERO devuelve true cuando NO tiene 6 monedas
+   return !(purses[currentPlayer] == 6);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={AFTER: Nombre que coincide con el comportamiento}, label=lst:critico_despues]
+// Clean Code Naming: El nombre anterior era enganoso (Disinformation)
+private boolean isGameInProgress() {
+   // Ahora el nombre refleja la realidad:
+   // Devuelve true cuando el juego AÚN no ha terminado
+   return !(coins[currentPlayer] == WINNING_COINS_COUNT);
+}
+\end{lstlisting}
+
+\textbf{¿Por qué es crítico?} En código profesional, un nombre engañoso es más peligroso que un bug obvio, porque el programador confía en lo que lee. Si el nombre dice "ganó" pero devuelve lo contrario, inducirá a errores en futuras modificaciones.
+
+\subsection{Tabla de Contexto: Números Mágicos Reemplazados}
+
+\begin{table}[h]
+\centering
+\caption{Números mágicos eliminados}
+\label{tab:magic-numbers}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Valor} & \textbf{Ocurría en} & \textbf{Sustituido por} & \textbf{Significado} \\
+\hline
+6 & \texttt{new int[6]} x3 & \texttt{MAX\_PLAYERS} & Número máximo de jugadores \\ \hline
+12 & Comparación en \texttt{roll()} & \texttt{BOARD\_SIZE} & Posiciones en el tablero \\ \hline
+6 & \texttt{== 6} en ganador & \texttt{WINNING\_COINS\_COUNT} & Monedas necesarias para ganar \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Principios de Clean Code Aplicados}
+
+Las reglas aplicadas corresponden al \textbf{Capítulo 2: Meaningful Names} del libro \textit{Clean Code} de Robert C. Martin:
+
+\begin{enumerate}
+    \item \textbf{Reveal Intent}: Los nombres deben decir \textit{por qué} existen, \textit{qué hacen} y \textit{cómo se usan}.
+    \item \textbf{Avoid Disinformation}: Un nombre incorrecto es peor que no tener nombre.
+    \item \textbf{Make Meaningful Distinctions}: Si dos variables se diferencian solo por un número (\texttt{a1}, \texttt{a2}), hay un problema de diseño.
+    \item \textbf{Use Pronounceable Names}: Si no puedes pronunciarlo, no puedes discutirlo en una revisión de código.
+    \item \textbf{Use Searchable Names}: Los nombres cortos (\texttt{i}, \texttt{x}) están bien solo en bucles locales; para variables con vida más larga, deben ser buscables.
+    \item \textbf{Avoid Encodings}: No prefijar tipos (\texttt{m\_}, \texttt{str\_}, \texttt{i\_}).
+    \item \textbf{Avoid Mental Mapping}: Las variables con nombres cortos obligan al lector a "mapear mentalmente" su significado.
+\end{enumerate}
+
+\section{Ejemplos de Buen Cumplimiento Previo}
+
+El código base ya contenía ejemplos que respetaban las reglas de nombrado:
+
+\begin{itemize}
+    \item \texttt{loadSoftwareHistoryQuestions()}, \texttt{loadProgrammingLanguagesQuestions()}: Nombres claros y auto-documentados.
+    \item \texttt{softwareHistoryQuestions}, \texttt{programmingLanguagesQuestions}: Variables descriptivas.
+    \item \texttt{playerAnswer}, \texttt{playerName}: Parámetros en contexto del juego.
+    \item \texttt{MAX\_PLAYERS}, \texttt{BOARD\_SIZE}: Constantes ya presentes en el código original.
+    \item Clase \texttt{Game}: Nombre simple y representativo.
+\end{itemize}
+
+\section{Hallazgo Adicional}
+
+Durante el análisis se detectó que la condición de victoria original usaba el número mágico \texttt{6} en \texttt{didPlayerWin()}, mientras que la constante \texttt{WINNING\_COINS\_COUNT} no existía. Esto provocaba una \textbf{duplicación de significado}: el "6" aparecía tres veces con el mismo significado (número máximo de jugadores) y una cuarta vez con un significado diferente (monedas para ganar). La refactorización unificó estos conceptos en constantes nombradas.

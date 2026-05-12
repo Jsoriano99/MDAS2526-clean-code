@@ -1,0 +1,44 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\begin{document}
+
+\input{portada}
+
+\tableofcontents
+\newpage
+
+\section{Introducción y Repositorio}
+\input{secciones/01_introduccion}
+
+\section{Semana 1: Reglas de Nombrado}
+\input{secciones/02_semana1}
+
+\section{Semana 2: Reglas de Comentarios y Formato}
+\input{secciones/03_semana2}
+
+\section{Semana 3: Reglas de Funciones}
+\input{secciones/04_semana3}
+
+\section{Semana 4: Refactorización Manual}
+\input{secciones/05_semana4}
+
+\section{Semana 5: Refactorización Automática}
+\input{secciones/06_semana5}
+
+\end{document}

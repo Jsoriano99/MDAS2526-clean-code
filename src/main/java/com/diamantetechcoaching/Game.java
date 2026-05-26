@@ -182,23 +182,28 @@ public class Game {
     }
 
     // Clean Code C5: CQS — public thin wrapper delegates to private command (awardCoin) and query (hasCurrentPlayerWon)
+    // Clean Code C3: Extract Method + Rename + Consolidate Conditional — 4-line duplicated block extracted
+    // into processCorrectAnswer(); variable renamed from misleading 'winner' to revealing 'gameContinues'
    public boolean handleCorrectAnswer() {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
-            awardCoin();
-            boolean winner = !hasCurrentPlayerWon();
-            advanceToNextPlayer();
-            return winner;
+            return processCorrectAnswer();
            } else {
               advanceToNextPlayer();
               return true;
           }
        } else {
-          awardCoin();
-          boolean winner = !hasCurrentPlayerWon();
-          advanceToNextPlayer();
-          return winner;
+          return processCorrectAnswer();
        }
+    }
+
+    // Clean Code C3: Extract Method — award + check + advance extracted from handleCorrectAnswer()
+    // Do One Thing: awards coin, checks if game continues, advances turn
+    private boolean processCorrectAnswer() {
+        awardCoin();
+        boolean gameContinues = !hasCurrentPlayerWon();
+        advanceToNextPlayer();
+        return gameContinues;
     }
 
     // Clean Code C5: CQS Command — mutates state (coins) and prints; no return value

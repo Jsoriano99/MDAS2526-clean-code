@@ -14,23 +14,28 @@ public class Game {
    private static final int BOARD_SIZE = 12;
    private static final int WINNING_COINS_COUNT = 6;
 
-   ArrayList players = new ArrayList();
-   int[] boardPositions = new int[MAX_PLAYERS];
-   int[] coins = new int[MAX_PLAYERS];
-   boolean[] inPenaltyBox = new boolean[MAX_PLAYERS];
+    // Clean Code C4: CATEGORIES array enables O(1) modulo-based dispatch instead of if-else chains
+    private static final String[] CATEGORIES = {
+        "Software History", "Programming Languages", "Refactoring", "Testing"
+    };
 
-   LinkedList softwareHistoryQuestions = new LinkedList();
-   LinkedList programmingLanguagesQuestions = new LinkedList();
-   LinkedList refactoringQuestions = new LinkedList();
-   LinkedList testingQuestions = new LinkedList();
-   LinkedList softwareHistoryAnswers = new LinkedList();
-   LinkedList programmingLanguagesAnswers = new LinkedList();
-   LinkedList refactoringAnswers = new LinkedList();
-   LinkedList testingAnswers = new LinkedList();
+    ArrayList players = new ArrayList();
+    int[] boardPositions = new int[MAX_PLAYERS];
+    int[] coins = new int[MAX_PLAYERS];
+    boolean[] inPenaltyBox = new boolean[MAX_PLAYERS];
 
-   int currentPlayer = 0;
-   boolean isGettingOutOfPenaltyBox;
-   String currentCorrectAnswer = "";
+    LinkedList softwareHistoryQuestions = new LinkedList();
+    LinkedList programmingLanguagesQuestions = new LinkedList();
+    LinkedList refactoringQuestions = new LinkedList();
+    LinkedList testingQuestions = new LinkedList();
+    LinkedList softwareHistoryAnswers = new LinkedList();
+    LinkedList programmingLanguagesAnswers = new LinkedList();
+    LinkedList refactoringAnswers = new LinkedList();
+    LinkedList testingAnswers = new LinkedList();
+
+    int currentPlayer = 0;
+    boolean isGettingOutOfPenaltyBox;
+    String currentCorrectAnswer = "";
 
     public Game() {
        // Clean Code C2: DRY — 4 duplicated loaders collapsed into one loadQuestions() method
@@ -143,55 +148,28 @@ public class Game {
 
    }
 
-   // Clean Code C1: String comparison with == replaced by .equals() (equals() compares content, not reference)
-   private void askQuestion() {
-      if (currentCategory().equals("Software History")) {
-         System.out.println(softwareHistoryQuestions.removeFirst());
-         currentCorrectAnswer = (String) softwareHistoryAnswers.removeFirst();
-      }
-      if (currentCategory().equals("Programming Languages")) {
-         System.out.println(programmingLanguagesQuestions.removeFirst());
-         currentCorrectAnswer = (String) programmingLanguagesAnswers.removeFirst();
-      }
-      if (currentCategory().equals("Refactoring")) {
-         System.out.println(refactoringQuestions.removeFirst());
-         currentCorrectAnswer = (String) refactoringAnswers.removeFirst();
-      }
-      if (currentCategory().equals("Testing")) {
-         System.out.println(testingQuestions.removeFirst());
-         currentCorrectAnswer = (String) testingAnswers.removeFirst();
-      }
-   }
+    // Clean Code C4: Do One Thing, DRY — 4 independent if-statements replaced with index-based dispatch
+    // Instead of evaluating currentCategory() 4 times per call, compute index once and use parallel arrays
+    private void askQuestion() {
+        int categoryIndex = (boardPositions[currentPlayer] - 1) % CATEGORIES.length;
+        LinkedList[] allQuestions = {
+            softwareHistoryQuestions, programmingLanguagesQuestions,
+            refactoringQuestions, testingQuestions
+        };
+        LinkedList[] allAnswers = {
+            softwareHistoryAnswers, programmingLanguagesAnswers,
+            refactoringAnswers, testingAnswers
+        };
 
-private String currentCategory() {
-       if (boardPositions[currentPlayer] - 1 == 0) {
-          return "Software History";
-       }
-       if (boardPositions[currentPlayer] - 1 == 4) {
-          return "Software History";
-       }
-       if (boardPositions[currentPlayer] - 1 == 8) {
-          return "Software History";
-       }
-       if (boardPositions[currentPlayer] - 1 == 1) {
-          return "Programming Languages";
-       }
-       if (boardPositions[currentPlayer] - 1 == 5) {
-          return "Programming Languages";
-       }
-       if (boardPositions[currentPlayer] - 1 == 9) {
-          return "Programming Languages";
-       }
-       if (boardPositions[currentPlayer] - 1 == 2) {
-          return "Refactoring";
-       }
-       if (boardPositions[currentPlayer] - 1 == 6) {
-          return "Refactoring";
-       }
-       if (boardPositions[currentPlayer] - 1 == 10) {
-          return "Refactoring";
-       }
-       return "Testing";
+        System.out.println(allQuestions[categoryIndex].removeFirst());
+        currentCorrectAnswer = (String) allAnswers[categoryIndex].removeFirst();
+    }
+
+    // Clean Code C4: Do One Thing, Small Functions — 9 if-statements collapsed into O(1) modular arithmetic
+    // Pattern: (boardPosition - 1) % 4 → 0=History, 1=Languages, 2=Refactoring, 3=Testing
+    private String currentCategory() {
+        int positionIndex = (boardPositions[currentPlayer] - 1) % CATEGORIES.length;
+        return CATEGORIES[positionIndex];
     }
 
    public boolean handleCorrectAnswer() {

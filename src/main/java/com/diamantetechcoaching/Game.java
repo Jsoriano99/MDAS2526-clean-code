@@ -115,13 +115,11 @@ public class Game {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
-             if (boardPositions[currentPlayer] > BOARD_SIZE) {
-                boardPositions[currentPlayer] = boardPositions[currentPlayer] - BOARD_SIZE;
-             }
+             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+              // Clean Code C3: DRY — extracted duplicated board position movement into movePlayerForward()
+              movePlayerForward(roll);
 
-             System.out.println(players.get(currentPlayer)
+              System.out.println(players.get(currentPlayer)
                    + "'s new location is "
                    + boardPositions[currentPlayer]);
              System.out.println("The category is " + currentCategory());
@@ -133,10 +131,8 @@ boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
 
        } else {
 
-          boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
-          if (boardPositions[currentPlayer] > BOARD_SIZE) {
-             boardPositions[currentPlayer] = boardPositions[currentPlayer] - BOARD_SIZE;
-          }
+          // Clean Code C3: DRY — extracted duplicated board position movement into movePlayerForward()
+          movePlayerForward(roll);
 
           System.out.println(players.get(currentPlayer)
                + "'s new location is "
@@ -208,19 +204,15 @@ private String currentCategory() {
                   + coins[currentPlayer]
                   + " Gold Coins.");
 
-             boolean winner = isGameInProgress();
-             currentPlayer++;
-             if (currentPlayer == players.size()) {
-                currentPlayer = 0;
-             }
+              boolean winner = isGameInProgress();
+              // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
+              advanceToNextPlayer();
 
-             return winner;
-          } else {
-             currentPlayer++;
-             if (currentPlayer == players.size()) {
-                currentPlayer = 0;
-             }
-             return true;
+              return winner;
+           } else {
+              // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
+              advanceToNextPlayer();
+              return true;
           }
 
        } else {
@@ -232,29 +224,41 @@ private String currentCategory() {
                 + coins[currentPlayer]
                 + " Gold Coins.");
 
-          boolean winner = isGameInProgress();
-          currentPlayer++;
-          if (currentPlayer == players.size()) {
-             currentPlayer = 0;
-          }
+           boolean winner = isGameInProgress();
+           // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
+           advanceToNextPlayer();
 
-          return winner;
+           return winner;
        }
     }
 
     public boolean wrongAnswer() {
        System.out.println("Question was incorrectly answered");
        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-       inPenaltyBox[currentPlayer] = true;
+        inPenaltyBox[currentPlayer] = true;
 
-       currentPlayer++;
-       if (currentPlayer == players.size()) {
-          currentPlayer = 0;
-       }
-       return true;
+        // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
+        advanceToNextPlayer();
+        return true;
     }
 
    private boolean isGameInProgress() {
       return !(coins[currentPlayer] == WINNING_COINS_COUNT);
+   }
+
+   // Clean Code C3: DRY, Do One Thing — extracted duplicated player turn advance (4 occurrences → 1 call)
+   private void advanceToNextPlayer() {
+      currentPlayer++;
+      if (currentPlayer == players.size()) {
+         currentPlayer = 0;
+      }
+   }
+
+   // Clean Code C3: DRY, Do One Thing — extracted duplicated board position movement with wrapping
+   private void movePlayerForward(int steps) {
+      boardPositions[currentPlayer] = boardPositions[currentPlayer] + steps;
+      if (boardPositions[currentPlayer] > BOARD_SIZE) {
+         boardPositions[currentPlayer] = boardPositions[currentPlayer] - BOARD_SIZE;
+      }
    }
 }

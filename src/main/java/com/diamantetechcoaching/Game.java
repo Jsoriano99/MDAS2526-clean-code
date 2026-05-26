@@ -149,7 +149,7 @@ public class Game {
     // Clean Code C4: Do One Thing, DRY — 4 independent if-statements replaced with index-based dispatch
     // Instead of evaluating currentCategory() 4 times per call, compute index once and use parallel arrays
     private void askQuestion() {
-        int categoryIndex = (boardPositions[currentPlayer] - 1) % CATEGORIES.length;
+        int categoryIndex = currentCategoryIndex();
         LinkedList[] allQuestions = {
             softwareHistoryQuestions, programmingLanguagesQuestions,
             refactoringQuestions, testingQuestions
@@ -163,11 +163,16 @@ public class Game {
         currentCorrectAnswer = (String) allAnswers[categoryIndex].removeFirst();
     }
 
+    // Clean Code: Extract Method, DRY — duplicated (boardPositions[currentPlayer]-1) % CATEGORIES.length
+    // extracted into currentCategoryIndex(), eliminating the expression from askQuestion() and currentCategory()
+    private int currentCategoryIndex() {
+        return (boardPositions[currentPlayer] - 1) % CATEGORIES.length;
+    }
+
     // Clean Code C4: Do One Thing, Small Functions — 9 if-statements collapsed into O(1) modular arithmetic
     // Pattern: (boardPosition - 1) % 4 → 0=History, 1=Languages, 2=Refactoring, 3=Testing
     private String currentCategory() {
-        int positionIndex = (boardPositions[currentPlayer] - 1) % CATEGORIES.length;
-        return CATEGORIES[positionIndex];
+        return CATEGORIES[currentCategoryIndex()];
     }
 
     // Clean Code C5: CQS — public thin wrapper delegates to private command (awardCoin) and query (hasCurrentPlayerWon)

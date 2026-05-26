@@ -58,22 +58,17 @@ public class Game {
             ArrayList unshuffledAnswers = new ArrayList();
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                if (parts.length >= EXPECTED_FIELDS_PER_QUESTION) {
-                    String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-                    unshuffledQuestions.add(question);
+                // Clean Code C4: Explaining Variable — reveals intent of the validation
+                boolean isValidQuestion = parts.length >= EXPECTED_FIELDS_PER_QUESTION;
+                if (isValidQuestion) {
+                    unshuffledQuestions.add(formatQuestion(parts));
                     unshuffledAnswers.add(parts[5]);
                 }
             }
-            ArrayList shuffledIndices = new ArrayList();
-            for (int i = 0; i < unshuffledQuestions.size(); i++) {
-                shuffledIndices.add(i);
-            }
-            Collections.shuffle(shuffledIndices);
-            for (int i = 0; i < shuffledIndices.size(); i++) {
-                int index = (Integer) shuffledIndices.get(i);
-                questions.addLast(unshuffledQuestions.get(index));
-                answers.addLast(unshuffledAnswers.get(index));
-            }
+            // Clean Code C4: Extract Method — create once, reuse for questions AND answers to preserve pairing
+            ArrayList shuffledIndices = createShuffledIndices(unshuffledQuestions.size());
+            shuffleInto(unshuffledQuestions, questions, shuffledIndices);
+            shuffleInto(unshuffledAnswers, answers, shuffledIndices);
         } catch (IOException e) {
             e.printStackTrace();
             for (int i = 0; i < FALLBACK_QUESTION_COUNT; i++) {
@@ -83,7 +78,34 @@ public class Game {
         }
     }
 
-   public boolean checkAnswer(String playerAnswer) {
+    // Clean Code C4: Extract Method — builds formatted question string from pipe-separated fields
+    // Do One Thing: concatenates parts[0-4] into a multi-line question string
+    private String formatQuestion(String[] parts) {
+        return parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+    }
+
+    // Clean Code C4: Extract Method — builds and shuffles a list of indices for random access
+    // Do One Thing: creates [0, 1, ..., size-1], shuffles it, returns it
+    private ArrayList createShuffledIndices(int size) {
+        ArrayList indices = new ArrayList();
+        for (int i = 0; i < size; i++) {
+            indices.add(i);
+        }
+        Collections.shuffle(indices);
+        return indices;
+    }
+
+    // Clean Code C4: Extract Method — copies source elements into target using pre-shuffled indices
+    // Do One Thing: iterates over indices, adding source.get(index) to target
+    // Note: call with SAME indices for paired lists (questions + answers) to preserve pairing
+    private void shuffleInto(ArrayList source, LinkedList target, ArrayList indices) {
+        for (int i = 0; i < indices.size(); i++) {
+            int index = (Integer) indices.get(i);
+            target.addLast(source.get(index));
+        }
+    }
+
+    public boolean checkAnswer(String playerAnswer) {
       return currentCorrectAnswer.equalsIgnoreCase(playerAnswer.trim());
    }
 

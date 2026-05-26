@@ -111,22 +111,16 @@ public class Game {
    }
 
    public void roll(int roll) {
-      System.out.println(players.get(currentPlayer) + " is the current player");
-      System.out.println("They have rolled a " + roll);
+      announceTurn(roll);
 
       if (inPenaltyBox[currentPlayer]) {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
              System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-              // Clean Code C3: DRY — extracted duplicated board position movement into movePlayerForward()
-              movePlayerForward(roll);
+               movePlayerForward(roll);
 
-              System.out.println(players.get(currentPlayer)
-                   + "'s new location is "
-                   + boardPositions[currentPlayer]);
-             System.out.println("The category is " + currentCategory());
-             askQuestion();
+               announceLocationAndAskQuestion();
           } else {
              System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
              isGettingOutOfPenaltyBox = false;
@@ -134,16 +128,28 @@ public class Game {
 
        } else {
 
-          // Clean Code C3: DRY — extracted duplicated board position movement into movePlayerForward()
           movePlayerForward(roll);
 
-          System.out.println(players.get(currentPlayer)
-               + "'s new location is "
-               + boardPositions[currentPlayer]);
-         System.out.println("The category is " + currentCategory());
-         askQuestion();
+          announceLocationAndAskQuestion();
       }
 
+   }
+
+   // Clean Code C2: Extract Method — two lines from roll() extracted into announceTurn()
+   // Do One Thing: announces whose turn it is and what they rolled
+   private void announceTurn(int roll) {
+      System.out.println(players.get(currentPlayer) + " is the current player");
+      System.out.println("They have rolled a " + roll);
+   }
+
+   // Clean Code C2: Extract Method, DRY — duplicated 4-line block in roll() extracted into one method
+   // Do One Thing: announces new location, category, and triggers askQuestion()
+   private void announceLocationAndAskQuestion() {
+      System.out.println(players.get(currentPlayer)
+           + "'s new location is "
+           + boardPositions[currentPlayer]);
+      System.out.println("The category is " + currentCategory());
+      askQuestion();
    }
 
     // Clean Code C4: Do One Thing, DRY — 4 independent if-statements replaced with index-based dispatch

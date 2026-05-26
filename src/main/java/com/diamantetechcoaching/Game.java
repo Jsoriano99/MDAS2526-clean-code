@@ -3,7 +3,6 @@ package com.diamantetechcoaching;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +12,9 @@ public class Game {
    private static final int MAX_PLAYERS = 6;
    private static final int BOARD_SIZE = 12;
    private static final int WINNING_COINS_COUNT = 6;
+   // Clean Code C5: Magic numbers extracted into named constants
+   private static final int EXPECTED_FIELDS_PER_QUESTION = 6;
+   private static final int FALLBACK_QUESTION_COUNT = 50;
 
     // Clean Code C4: CATEGORIES array enables O(1) modulo-based dispatch instead of if-else chains
     private static final String[] CATEGORIES = {
@@ -56,7 +58,7 @@ public class Game {
             ArrayList unshuffledAnswers = new ArrayList();
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                if (parts.length >= 6) {
+                if (parts.length >= EXPECTED_FIELDS_PER_QUESTION) {
                     String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
                     unshuffledQuestions.add(question);
                     unshuffledAnswers.add(parts[5]);
@@ -74,16 +76,12 @@ public class Game {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < FALLBACK_QUESTION_COUNT; i++) {
                 questions.addLast(categoryName + " Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
                 answers.addLast("a");
             }
         }
     }
-
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
-   }
 
    public boolean checkAnswer(String playerAnswer) {
       return currentCorrectAnswer.equalsIgnoreCase(playerAnswer.trim());
@@ -172,57 +170,54 @@ public class Game {
         return CATEGORIES[positionIndex];
     }
 
+    // Clean Code C5: CQS — public thin wrapper delegates to private command (awardCoin) and query (hasCurrentPlayerWon)
    public boolean handleCorrectAnswer() {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was correct!!!!");
-            coins[currentPlayer]++;
-            System.out.println(players.get(currentPlayer)
-                  + " now has "
-                  + coins[currentPlayer]
-                  + " Gold Coins.");
-
-              boolean winner = isGameInProgress();
-              // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
-              advanceToNextPlayer();
-
-              return winner;
+            awardCoin();
+            boolean winner = !hasCurrentPlayerWon();
+            advanceToNextPlayer();
+            return winner;
            } else {
-              // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
               advanceToNextPlayer();
               return true;
           }
-
        } else {
-
-          System.out.println("Answer was correct!!!!");
-          coins[currentPlayer]++;
-          System.out.println(players.get(currentPlayer)
-                + " now has "
-                + coins[currentPlayer]
-                + " Gold Coins.");
-
-           boolean winner = isGameInProgress();
-           // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
-           advanceToNextPlayer();
-
-           return winner;
+          awardCoin();
+          boolean winner = !hasCurrentPlayerWon();
+          advanceToNextPlayer();
+          return winner;
        }
     }
 
-    public boolean wrongAnswer() {
-       System.out.println("Question was incorrectly answered");
-       System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
-
-        // Clean Code C3: DRY — extracted duplicated turn advance into advanceToNextPlayer()
-        advanceToNextPlayer();
-        return true;
+    // Clean Code C5: CQS Command — mutates state (coins) and prints; no return value
+    private void awardCoin() {
+       System.out.println("Answer was correct!!!!");
+       coins[currentPlayer]++;
+       System.out.println(players.get(currentPlayer)
+             + " now has "
+             + coins[currentPlayer]
+             + " Gold Coins.");
     }
 
-   private boolean isGameInProgress() {
-      return !(coins[currentPlayer] == WINNING_COINS_COUNT);
-   }
+    // Clean Code C5: CQS Query — pure check, no side effects; renamed from isGameInProgress with inverted logic
+    private boolean hasCurrentPlayerWon() {
+       return coins[currentPlayer] == WINNING_COINS_COUNT;
+    }
+
+    // Clean Code C5: CQS — thin wrapper delegates command (penalize) to private method
+    public boolean wrongAnswer() {
+       penalizeCurrentPlayer();
+       advanceToNextPlayer();
+       return true;
+    }
+
+    // Clean Code C5: CQS Command — mutates penalty state and prints; no return value
+    private void penalizeCurrentPlayer() {
+       System.out.println("Question was incorrectly answered");
+       System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+       inPenaltyBox[currentPlayer] = true;
+    }
 
    // Clean Code C3: DRY, Do One Thing — extracted duplicated player turn advance (4 occurrences → 1 call)
    private void advanceToNextPlayer() {

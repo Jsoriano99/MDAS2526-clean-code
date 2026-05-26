@@ -39,10 +39,11 @@ public class Game {
       loadTestingQuestions();
    }
 
+   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
     private void loadSoftwareHistoryQuestions() {
-       try {
-          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
-          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isr)) {
           String line;
           ArrayList unshuffledQuestions = new ArrayList();
           ArrayList unshuffledAnswers = new ArrayList();
@@ -54,7 +55,6 @@ public class Game {
                 unshuffledAnswers.add(parts[5]);
              }
           }
-          reader.close();
           ArrayList shuffledIndices = new ArrayList();
           for (int i = 0; i < unshuffledQuestions.size(); i++) {
              shuffledIndices.add(i);
@@ -75,11 +75,12 @@ public class Game {
       }
    }
 
+   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
     private void loadProgrammingLanguagesQuestions() {
-       try {
-          InputStream inputStream = getClass().getClassLoader()
+       try (InputStream inputStream = getClass().getClassLoader()
                 .getResourceAsStream("questions/programming_languages.txt");
-          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isr)) {
           String line;
           ArrayList unshuffledQuestions = new ArrayList();
           ArrayList unshuffledAnswers = new ArrayList();
@@ -91,7 +92,6 @@ public class Game {
                 unshuffledAnswers.add(parts[5]);
              }
           }
-          reader.close();
           ArrayList shuffledIndices = new ArrayList();
           for (int i = 0; i < unshuffledQuestions.size(); i++) {
              shuffledIndices.add(i);
@@ -112,10 +112,11 @@ public class Game {
       }
    }
 
+   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
     private void loadRefactoringQuestions() {
-       try {
-          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
-          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isr)) {
           String line;
           ArrayList unshuffledQuestions = new ArrayList();
           ArrayList unshuffledAnswers = new ArrayList();
@@ -127,7 +128,6 @@ public class Game {
                 unshuffledAnswers.add(parts[5]);
              }
           }
-          reader.close();
           ArrayList shuffledIndices = new ArrayList();
           for (int i = 0; i < unshuffledQuestions.size(); i++) {
              shuffledIndices.add(i);
@@ -148,10 +148,11 @@ public class Game {
       }
    }
 
+   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
     private void loadTestingQuestions() {
-       try {
-          InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
-          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isr)) {
           String line;
           ArrayList unshuffledQuestions = new ArrayList();
           ArrayList unshuffledAnswers = new ArrayList();
@@ -163,7 +164,6 @@ public class Game {
                unshuffledAnswers.add(parts[5]);
             }
          }
-reader.close();
           ArrayList shuffledIndices = new ArrayList();
           for (int i = 0; i < unshuffledQuestions.size(); i++) {
              shuffledIndices.add(i);
@@ -254,20 +254,21 @@ boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
 
    }
 
+   // Clean Code C1: String comparison with == replaced by .equals() (equals() compares content, not reference)
    private void askQuestion() {
-      if (currentCategory() == "Software History") {
+      if (currentCategory().equals("Software History")) {
          System.out.println(softwareHistoryQuestions.removeFirst());
          currentCorrectAnswer = (String) softwareHistoryAnswers.removeFirst();
       }
-      if (currentCategory() == "Programming Languages") {
+      if (currentCategory().equals("Programming Languages")) {
          System.out.println(programmingLanguagesQuestions.removeFirst());
          currentCorrectAnswer = (String) programmingLanguagesAnswers.removeFirst();
       }
-      if (currentCategory() == "Refactoring") {
+      if (currentCategory().equals("Refactoring")) {
          System.out.println(refactoringQuestions.removeFirst());
          currentCorrectAnswer = (String) refactoringAnswers.removeFirst();
       }
-      if (currentCategory() == "Testing") {
+      if (currentCategory().equals("Testing")) {
          System.out.println(testingQuestions.removeFirst());
          currentCorrectAnswer = (String) testingAnswers.removeFirst();
       }
@@ -331,7 +332,7 @@ private String currentCategory() {
 
        } else {
 
-          System.out.println("Answer was corrent!!!!");
+          System.out.println("Answer was correct!!!!");
           coins[currentPlayer]++;
           System.out.println(players.get(currentPlayer)
                 + " now has "

@@ -123,8 +123,8 @@ public class Game {
       inPenaltyBox[howManyPlayers()] = false;
       players.add(playerName);
 
-      System.out.println(playerName + " was added");
-      System.out.println("They are player number " + players.size());
+      display(playerName + " was added");
+      display("They are player number " + players.size());
       return true;
    }
 
@@ -139,12 +139,12 @@ public class Game {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
-             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+             display(players.get(currentPlayer) + " is getting out of the penalty box");
                movePlayerForward(roll);
 
                announceLocationAndAskQuestion();
           } else {
-             System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+             display(players.get(currentPlayer) + " is not getting out of the penalty box");
              isGettingOutOfPenaltyBox = false;
           }
 
@@ -160,17 +160,17 @@ public class Game {
    // Clean Code C2: Extract Method — two lines from roll() extracted into announceTurn()
    // Do One Thing: announces whose turn it is and what they rolled
    private void announceTurn(int roll) {
-      System.out.println(players.get(currentPlayer) + " is the current player");
-      System.out.println("They have rolled a " + roll);
+      display(players.get(currentPlayer) + " is the current player");
+      display("They have rolled a " + roll);
    }
 
    // Clean Code C2: Extract Method, DRY — duplicated 4-line block in roll() extracted into one method
    // Do One Thing: announces new location, category, and triggers askQuestion()
    private void announceLocationAndAskQuestion() {
-      System.out.println(players.get(currentPlayer)
-           + "'s new location is "
-           + boardPositions[currentPlayer]);
-      System.out.println("The category is " + currentCategory());
+      display(players.get(currentPlayer)
+            + "'s new location is "
+            + boardPositions[currentPlayer]);
+      display("The category is " + currentCategory());
       askQuestion();
    }
 
@@ -187,7 +187,7 @@ public class Game {
             refactoringAnswers, testingAnswers
         };
 
-        System.out.println(allQuestions[categoryIndex].removeFirst());
+        display((String) allQuestions[categoryIndex].removeFirst());
         currentCorrectAnswer = (String) allAnswers[categoryIndex].removeFirst();
     }
 
@@ -201,6 +201,11 @@ public class Game {
     // Pattern: (boardPosition - 1) % 4 → 0=History, 1=Languages, 2=Refactoring, 3=Testing
     private String currentCategory() {
         return CATEGORIES[currentCategoryIndex()];
+    }
+
+    // Clean Code C5: Extract Method — desacopla la lógica del juego de la salida por consola
+    private void display(String message) {
+        System.out.println(message);
     }
 
     // Clean Code C5: CQS — public thin wrapper delegates to private command (awardCoin) and query (hasCurrentPlayerWon)
@@ -230,12 +235,12 @@ public class Game {
 
     // Clean Code C5: CQS Command — mutates state (coins) and prints; no return value
     private void awardCoin() {
-       System.out.println("Answer was correct!!!!");
+       display("Answer was correct!!!!");
        coins[currentPlayer]++;
-       System.out.println(players.get(currentPlayer)
-             + " now has "
-             + coins[currentPlayer]
-             + " Gold Coins.");
+       display(players.get(currentPlayer)
+              + " now has "
+              + coins[currentPlayer]
+              + " Gold Coins.");
     }
 
     // Clean Code C5: CQS Query — pure check, no side effects; renamed from isGameInProgress with inverted logic
@@ -252,8 +257,8 @@ public class Game {
 
     // Clean Code C5: CQS Command — mutates penalty state and prints; no return value
     private void penalizeCurrentPlayer() {
-       System.out.println("Question was incorrectly answered");
-       System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+       display("Question was incorrectly answered");
+       display(players.get(currentPlayer) + " was sent to the penalty box");
        inPenaltyBox[currentPlayer] = true;
     }
 

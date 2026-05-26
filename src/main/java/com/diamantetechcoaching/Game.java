@@ -32,156 +32,49 @@ public class Game {
    boolean isGettingOutOfPenaltyBox;
    String currentCorrectAnswer = "";
 
-   public Game() {
-      loadSoftwareHistoryQuestions();
-      loadProgrammingLanguagesQuestions();
-      loadRefactoringQuestions();
-      loadTestingQuestions();
-   }
+    public Game() {
+       // Clean Code C2: DRY — 4 duplicated loaders collapsed into one loadQuestions() method
+       loadQuestions("questions/software_history.txt", "Software History", softwareHistoryQuestions, softwareHistoryAnswers);
+       loadQuestions("questions/programming_languages.txt", "Programming Languages", programmingLanguagesQuestions, programmingLanguagesAnswers);
+       loadQuestions("questions/refactoring.txt", "Refactoring", refactoringQuestions, refactoringAnswers);
+       loadQuestions("questions/testing.txt", "Testing", testingQuestions, testingAnswers);
+    }
 
-   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
-    private void loadSoftwareHistoryQuestions() {
-       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/software_history.txt");
-            InputStreamReader isr = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isr)) {
-          String line;
-          ArrayList unshuffledQuestions = new ArrayList();
-          ArrayList unshuffledAnswers = new ArrayList();
-          while ((line = reader.readLine()) != null) {
-             String[] parts = line.split("\\|");
-             if (parts.length >= 6) {
-                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-                unshuffledQuestions.add(question);
-                unshuffledAnswers.add(parts[5]);
-             }
-          }
-          ArrayList shuffledIndices = new ArrayList();
-          for (int i = 0; i < unshuffledQuestions.size(); i++) {
-             shuffledIndices.add(i);
-          }
-          Collections.shuffle(shuffledIndices);
-          for (int i = 0; i < shuffledIndices.size(); i++) {
-             int index = (Integer) shuffledIndices.get(i);
-             softwareHistoryQuestions.addLast(unshuffledQuestions.get(index));
-             softwareHistoryAnswers.addLast(unshuffledAnswers.get(index));
-          }
-       } catch (IOException e) {
-          e.printStackTrace();
-          for (int i = 0; i < 50; i++) {
-            softwareHistoryQuestions
-                  .addLast("Software History Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
-            softwareHistoryAnswers.addLast("a");
-         }
-      }
-   }
-
-   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
-    private void loadProgrammingLanguagesQuestions() {
-       try (InputStream inputStream = getClass().getClassLoader()
-                .getResourceAsStream("questions/programming_languages.txt");
-            InputStreamReader isr = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isr)) {
-          String line;
-          ArrayList unshuffledQuestions = new ArrayList();
-          ArrayList unshuffledAnswers = new ArrayList();
-          while ((line = reader.readLine()) != null) {
-             String[] parts = line.split("\\|");
-             if (parts.length >= 6) {
-                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-                unshuffledQuestions.add(question);
-                unshuffledAnswers.add(parts[5]);
-             }
-          }
-          ArrayList shuffledIndices = new ArrayList();
-          for (int i = 0; i < unshuffledQuestions.size(); i++) {
-             shuffledIndices.add(i);
-          }
-          Collections.shuffle(shuffledIndices);
-          for (int i = 0; i < shuffledIndices.size(); i++) {
-             int index = (Integer) shuffledIndices.get(i);
-             programmingLanguagesQuestions.addLast(unshuffledQuestions.get(index));
-             programmingLanguagesAnswers.addLast(unshuffledAnswers.get(index));
-          }
-       } catch (IOException e) {
-          e.printStackTrace();
-          for (int i = 0; i < 50; i++) {
-            programmingLanguagesQuestions.addLast(
-                  "Programming Languages Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
-            programmingLanguagesAnswers.addLast("a");
-         }
-      }
-   }
-
-   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
-    private void loadRefactoringQuestions() {
-       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/refactoring.txt");
-            InputStreamReader isr = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isr)) {
-          String line;
-          ArrayList unshuffledQuestions = new ArrayList();
-          ArrayList unshuffledAnswers = new ArrayList();
-          while ((line = reader.readLine()) != null) {
-             String[] parts = line.split("\\|");
-             if (parts.length >= 6) {
-                String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-                unshuffledQuestions.add(question);
-                unshuffledAnswers.add(parts[5]);
-             }
-          }
-          ArrayList shuffledIndices = new ArrayList();
-          for (int i = 0; i < unshuffledQuestions.size(); i++) {
-             shuffledIndices.add(i);
-          }
-          Collections.shuffle(shuffledIndices);
-          for (int i = 0; i < shuffledIndices.size(); i++) {
-             int index = (Integer) shuffledIndices.get(i);
-             refactoringQuestions.addLast(unshuffledQuestions.get(index));
-             refactoringAnswers.addLast(unshuffledAnswers.get(index));
-          }
-       } catch (IOException e) {
-          e.printStackTrace();
-          for (int i = 0; i < 50; i++) {
-            refactoringQuestions
-                  .addLast("Refactoring Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
-            refactoringAnswers.addLast("a");
-         }
-      }
-   }
-
-   // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
-    private void loadTestingQuestions() {
-       try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("questions/testing.txt");
-            InputStreamReader isr = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isr)) {
-          String line;
-          ArrayList unshuffledQuestions = new ArrayList();
-          ArrayList unshuffledAnswers = new ArrayList();
-         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
-               String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
-               unshuffledQuestions.add(question);
-               unshuffledAnswers.add(parts[5]);
+    // Clean Code C2: DRY, Small Functions — 4 identical loaders collapsed into one parameterized method
+    // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
+    private void loadQuestions(String resourcePath, String categoryName, LinkedList questions, LinkedList answers) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
+             InputStreamReader isr = new InputStreamReader(inputStream);
+             BufferedReader reader = new BufferedReader(isr)) {
+            String line;
+            ArrayList unshuffledQuestions = new ArrayList();
+            ArrayList unshuffledAnswers = new ArrayList();
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts.length >= 6) {
+                    String question = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n" + parts[4];
+                    unshuffledQuestions.add(question);
+                    unshuffledAnswers.add(parts[5]);
+                }
             }
-         }
-          ArrayList shuffledIndices = new ArrayList();
-          for (int i = 0; i < unshuffledQuestions.size(); i++) {
-             shuffledIndices.add(i);
-          }
-          Collections.shuffle(shuffledIndices);
-          for (int i = 0; i < shuffledIndices.size(); i++) {
-             int index = (Integer) shuffledIndices.get(i);
-             testingQuestions.addLast(unshuffledQuestions.get(index));
-             testingAnswers.addLast(unshuffledAnswers.get(index));
-          }
-       } catch (IOException e) {
-          e.printStackTrace();
-          for (int i = 0; i < 50; i++) {
-            testingQuestions.addLast("Testing Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
-            testingAnswers.addLast("a");
-         }
-      }
-   }
+            ArrayList shuffledIndices = new ArrayList();
+            for (int i = 0; i < unshuffledQuestions.size(); i++) {
+                shuffledIndices.add(i);
+            }
+            Collections.shuffle(shuffledIndices);
+            for (int i = 0; i < shuffledIndices.size(); i++) {
+                int index = (Integer) shuffledIndices.get(i);
+                questions.addLast(unshuffledQuestions.get(index));
+                answers.addLast(unshuffledAnswers.get(index));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            for (int i = 0; i < 50; i++) {
+                questions.addLast(categoryName + " Question " + i + "\na) Option A\nb) Option B\nc) Option C\nd) Option D");
+                answers.addLast("a");
+            }
+        }
+    }
 
    public String createRockQuestion(int index) {
       return "Rock Question " + index;

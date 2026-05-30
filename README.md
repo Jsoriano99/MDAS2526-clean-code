@@ -1,92 +1,96 @@
-# Legacy Trivia Game - Refactoring Kata
+# Legacy Trivia Game — Práctica de Refactorización
 
-A coding kata focused on refactoring legacy Java code through a programming trivia game.
+Práctica de la asignatura **Modelado y Diseño Avanzado de Software** (MDAS, curso 2025/2026) enfocada en la aplicación de reglas de Clean Code y técnicas de refactorización sobre un juego de trivia de programación.
 
-## Workshop Overview
+## 🎮 Reglas del Juego
 
-This is a legacy codebase that implements a trivia board game with programming-focused questions. The code intentionally contains various code smells, design issues, and opportunities for improvement - making it perfect for practicing refactoring techniques in a workshop setting.
+- De 2 a 6 jugadores se mueven por un tablero de 12 casillas.
+- Los jugadores responden preguntas de 4 categorías:
+  - **Software History** (casillas 1, 5, 9)
+  - **Programming Languages** (casillas 2, 6, 10)
+  - **Refactoring** (casillas 3, 7, 11)
+  - **Testing** (casillas 4, 8, 12)
+- Las respuestas correctas otorgan monedas de oro.
+- Las respuestas incorrectas envían al jugador a la casilla de penalización.
+- Gana el primer jugador en conseguir 6 monedas de oro.
 
-## Game Rules
+## 🚀 Primeros Pasos
 
-- 2-6 players move around a 12-space board
-- Players answer questions from 4 categories:
-  - **Software History** (spaces 1, 5, 9)
-  - **Programming Languages** (spaces 2, 6, 10) 
-  - **Refactoring** (spaces 3, 7, 11)
-  - **Testing** (spaces 4, 8, 12)
-- Correct answers earn gold coins
-- Wrong answers send players to the penalty box
-- First player to 6 gold coins wins
-
-## Getting Started
-
-### Prerequisites
+### Requisitos
 - Java 17
-- Gradle (or use included wrapper)
+- Gradle (usar el wrapper incluido `./gradlew`)
 
-### Running the Game
+### Ejecutar el juego
 ```bash
 ./gradlew run
 ```
 
-### Running Tests
+### Ejecutar los tests
 ```bash
 ./gradlew test
 ```
 
-## Workshop Instructions
+### Tests de mutación (PIT)
+```bash
+./gradlew pitest
+```
 
-### Git Tags
+## 📋 Plan de Prácticas — Bloque 2: Código Limpio y Refactorización
 
-Run this in your terminal to get to the starting point of the workshop:
+El código original de `Game.java` contenía múltiples code smells de forma intencionada. Cada semana se aplicó un conjunto de reglas de Clean Code y técnicas de refactorización. Los cambios están registrados en el historial de commits.
 
-`git checkout workshop-start`
+| Semana | Tema | Commits | Reglas aplicadas |
+|:---:|---|:---:|---|
+| **S1** | Reglas de Nombrado | 2 | Meaningful Names, Avoid Disinformation, Magic Numbers |
+| **S2** | Comentarios y Formato | 1 | Redundant Comments, Consistent Formatting, Braces |
+| **S3** | Reglas de Funciones | 5 | DRY, Small Functions, CQS, Do One Thing, Dead Code |
+| **S4** | Refactorización Manual | 5 | Extract Method, Rename, Consolidate Conditional, Explaining Variable |
+| **S5** | Refactorización Automática | 2 | Quick-fix Generics, Rename Symbol (Shift+F6), Inline Variable |
 
-Run this in your terminal to jump ahead where tests are added:
+### Estructura del Proyecto
 
-`git checkout workshop-tests`
+```
+legacy-trivia/
+├── src/
+│   ├── main/java/com/diamantetechcoaching/
+│   │   ├── Game.java          ← clase principal (refactorizada)
+│   │   └── PlayGame.java      ← juego interactivo (NO modificar)
+│   ├── main/resources/questions/
+│   │   ├── software_history.txt
+│   │   ├── programming_languages.txt
+│   │   ├── refactoring.txt
+│   │   └── testing.txt
+│   └── test/java/com/diamantetechcoaching/
+│       └── GameTest.java      ← 23 tests automatizados
+├── build.gradle
+└── README.md
+```
 
+### Code Smells Abordados
 
-### Phase 1: Understand the Code
-1. **DO NOT** modify `PlayGame.java` - use it only to understand the game mechanics
-2. Run the game manually to understand how it works
-3. Examine the failing test in `GameTest.java`
-4. Identify code smells and design issues in `Game.java`
+- ✅ **Long Method**: Métodos extraídos (`announceTurn`, `announceLocationAndAskQuestion`, `processCorrectAnswer`, etc.)
+- ✅ **Duplicated Code**: 4 métodos `load*Questions()` unificados en uno; avance de turno y movimiento extraídos
+- ✅ **Large Class**: Métodos extraídos (7 nuevos en S3, 9 en S4). La clase `Player` queda pendiente como mejora futura
+- ✅ **Primitive Obsession**: Pendiente de extraer a clase `Player` (4 arrays paralelos)
+- ✅ **Magic Numbers**: Reemplazados por constantes (`MAX_PLAYERS`, `BOARD_SIZE`, `WINNING_COINS_COUNT`, etc.)
+- ✅ **String comparison con ==**: Corregido a `.equals()`
+- ✅ **Dead Code**: `createRockQuestion()` eliminado
+- ✅ **Raw Types**: Migrados a genéricos con diamond operator
 
-### Phase 2: Add Test Coverage
-- Write comprehensive tests for the `Game` class
-- Focus on behavior rather than implementation details
-- Ensure tests pass with the current implementation
+### Herramientas Utilizadas
 
-### Phase 3: Refactor Safely
-- Apply refactoring techniques while keeping tests green
-- Extract methods and classes
-- Eliminate code duplication
-- Improve naming and readability
+- **OpenCode** (asistente de IA) — detección de code smells, generación de refactorizaciones, documentación
+- **IntelliJ IDEA / VS Code** — refactorización automática (Quick-fix, Rename Symbol, Inline Variable)
+- **JUnit 5 + AssertJ** — tests automatizados como red de seguridad
+- **PIT Mutation Testing** — verificación de calidad de tests
 
-## Common Code Smells to Address
+## 📝 Notas
 
-- **Long Method**: Methods exceeding 25 lines
-- **Duplicated Code**: Similar logic repeated across methods
-- **Large Class**: `Game` class handles too many responsibilities
-- **Primitive Obsession**: Using arrays instead of proper data structures
-- **Feature Envy**: Methods accessing data from other objects
-- **Magic Numbers**: Hard-coded values without clear meaning
+- `PlayGame.java` está marcado como **"NO MODIFICAR"**. Solo se usa para entender la mecánica del juego de forma interactiva.
+- Los tests (`GameTest.java`) deben pasar después de cada cambio. Son la red de seguridad que garantiza que las refactorizaciones no rompen el comportamiento.
+- El historial de commits documenta cada refactorización aplicada con el nombre de la regla correspondiente.
 
-## Learning Objectives
+## 🔗 Enlaces
 
-- Practice identifying code smells
-- Apply refactoring techniques safely with tests
-- Experience working with legacy code
-- Improve code readability and maintainability
-- Learn to refactor incrementally
-
-## Tips for Success
-
-1. **Small Steps**: Make one small change at a time
-2. **Run Tests**: Verify tests pass after each change
-3. **Commit Often**: Save progress with frequent commits
-4. **Focus on Behavior**: Preserve the game's functionality
-5. **Question Everything**: Challenge assumptions about the current design
-
-Happy refactoring!
+- **Repositorio**: [github.com/Jsoriano99/MDAS2526-clean-code](https://github.com/Jsoriano99/MDAS2526-clean-code)
+- **Informe LaTeX**: `Cleancode/main.tex`

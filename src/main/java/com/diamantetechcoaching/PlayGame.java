@@ -35,7 +35,7 @@ do {
 
           System.out.print(">> Enter your answer [a/b/c/d]: ");
           String playerAnswer = readAnswer();
-          boolean correct = game.checkAnswer(playerAnswer);
+           boolean correct = game.isAnswerCorrect(playerAnswer);
           if (correct) {
              System.out.println(">> Correct! The answer was " + game.getCorrectAnswer());
              gameInProgress = game.handleCorrectAnswer();

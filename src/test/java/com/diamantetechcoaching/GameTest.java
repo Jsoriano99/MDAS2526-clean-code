@@ -132,8 +132,8 @@ class GameTest {
 
             // Can't easily assert category since it's private,
             // but we verify no crash and can answer
-            boolean answered = game.checkAnswer("a");
-            // checkAnswer just compares against currentCorrectAnswer
+            boolean answered = game.isAnswerCorrect("a");
+            // isAnswerCorrect just compares against currentCorrectAnswer
             assertThat(answered).isIn(true, false);
         }
 
@@ -252,47 +252,47 @@ class GameTest {
         }
 
         @Test
-        @DisplayName("checkAnswer returns true for correct answer")
+        @DisplayName("isAnswerCorrect returns true for correct answer")
         void should_returnTrue_when_answerIsCorrect() {
             game.roll(3);
             // Get the correct answer
             String correctAnswer = game.getCorrectAnswer();
 
-            boolean result = game.checkAnswer(correctAnswer);
+            boolean result = game.isAnswerCorrect(correctAnswer);
 
             assertThat(result).isTrue();
         }
 
         @Test
-        @DisplayName("checkAnswer returns false for wrong answer")
+        @DisplayName("isAnswerCorrect returns false for wrong answer")
         void should_returnFalse_when_answerIsWrong() {
             game.roll(3);
 
             // The correct answer is "a", "b", "c", or "d"
             // We can try "z" which should be wrong
-            boolean result = game.checkAnswer("z");
+            boolean result = game.isAnswerCorrect("z");
 
             assertThat(result).isFalse();
         }
 
         @Test
-        @DisplayName("checkAnswer is case insensitive")
+        @DisplayName("isAnswerCorrect is case insensitive")
         void should_ignoreCase_when_checkingAnswer() {
             game.roll(3);
             String correctAnswer = game.getCorrectAnswer();
 
-            boolean resultUpper = game.checkAnswer(correctAnswer.toUpperCase());
+            boolean resultUpper = game.isAnswerCorrect(correctAnswer.toUpperCase());
 
             assertThat(resultUpper).isTrue();
         }
 
         @Test
-        @DisplayName("checkAnswer trims whitespace")
+        @DisplayName("isAnswerCorrect trims whitespace")
         void should_trimSpaces_when_checkingAnswer() {
             game.roll(3);
             String correctAnswer = game.getCorrectAnswer();
 
-            boolean result = game.checkAnswer("  " + correctAnswer + "  ");
+            boolean result = game.isAnswerCorrect("  " + correctAnswer + "  ");
 
             assertThat(result).isTrue();
         }
@@ -317,7 +317,7 @@ class GameTest {
         void should_awardCoin_when_correctAnswer() {
             game.roll(3);
             String correctAnswer = game.getCorrectAnswer();
-            game.checkAnswer(correctAnswer);
+            game.isAnswerCorrect(correctAnswer);
 
             boolean result = game.handleCorrectAnswer();
 
@@ -330,14 +330,14 @@ class GameTest {
         void should_advancePlayer_when_correctAnswer() {
             game.roll(3);
             String correctAnswer = game.getCorrectAnswer();
-            game.checkAnswer(correctAnswer);
+            game.isAnswerCorrect(correctAnswer);
             game.handleCorrectAnswer();
 
             // Now it should be Bob's turn
             game.roll(1);
             // Bob can answer
             String bobsAnswer = game.getCorrectAnswer();
-            boolean answered = game.checkAnswer(bobsAnswer);
+            boolean answered = game.isAnswerCorrect(bobsAnswer);
             // No crash = advance worked
         }
     }
@@ -373,7 +373,7 @@ class GameTest {
 
                 // Get correct answer and submit it
                 String correctAnswer = game.getCorrectAnswer();
-                boolean isCorrect = game.checkAnswer(correctAnswer);
+                boolean isCorrect = game.isAnswerCorrect(correctAnswer);
 
                 if (isCorrect) {
                     gameContinues = game.handleCorrectAnswer();
@@ -409,7 +409,7 @@ class GameTest {
                 game.roll((turns % 6) + 1);
 
                 String correctAnswer = game.getCorrectAnswer();
-                boolean isCorrect = game.checkAnswer(correctAnswer);
+                boolean isCorrect = game.isAnswerCorrect(correctAnswer);
 
                 if (isCorrect) {
                     gameContinues = game.handleCorrectAnswer();
@@ -451,7 +451,7 @@ class GameTest {
                 game.roll(3);
 
                 String answer = game.getCorrectAnswer();
-                boolean correct = game.checkAnswer(answer);
+                boolean correct = game.isAnswerCorrect(answer);
 
                 if (correct) {
                     game.handleCorrectAnswer();

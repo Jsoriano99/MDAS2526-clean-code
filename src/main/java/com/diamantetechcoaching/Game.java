@@ -105,7 +105,8 @@ public class Game {
         }
     }
 
-    public boolean checkAnswer(String playerAnswer) {
+    // Clean Code C5: CQS — Renamed via IDE Shift+F6: query method should use "is" prefix (CQS)
+    public boolean isAnswerCorrect(String playerAnswer) {
       return currentCorrectAnswer.equalsIgnoreCase(playerAnswer.trim());
    }
 

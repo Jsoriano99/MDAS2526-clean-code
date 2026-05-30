@@ -21,19 +21,19 @@ public class Game {
         "Software History", "Programming Languages", "Refactoring", "Testing"
     };
 
-    ArrayList players = new ArrayList();
+    ArrayList<String> players = new ArrayList<>();
     int[] boardPositions = new int[MAX_PLAYERS];
     int[] coins = new int[MAX_PLAYERS];
     boolean[] inPenaltyBox = new boolean[MAX_PLAYERS];
 
-    LinkedList softwareHistoryQuestions = new LinkedList();
-    LinkedList programmingLanguagesQuestions = new LinkedList();
-    LinkedList refactoringQuestions = new LinkedList();
-    LinkedList testingQuestions = new LinkedList();
-    LinkedList softwareHistoryAnswers = new LinkedList();
-    LinkedList programmingLanguagesAnswers = new LinkedList();
-    LinkedList refactoringAnswers = new LinkedList();
-    LinkedList testingAnswers = new LinkedList();
+    LinkedList<String> softwareHistoryQuestions = new LinkedList<>();
+    LinkedList<String> programmingLanguagesQuestions = new LinkedList<>();
+    LinkedList<String> refactoringQuestions = new LinkedList<>();
+    LinkedList<String> testingQuestions = new LinkedList<>();
+    LinkedList<String> softwareHistoryAnswers = new LinkedList<>();
+    LinkedList<String> programmingLanguagesAnswers = new LinkedList<>();
+    LinkedList<String> refactoringAnswers = new LinkedList<>();
+    LinkedList<String> testingAnswers = new LinkedList<>();
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -49,13 +49,13 @@ public class Game {
 
     // Clean Code C2: DRY, Small Functions — 4 identical loaders collapsed into one parameterized method
     // Clean Code C1: try-with-resources ensures BufferedReader is auto-closed (no manual reader.close())
-    private void loadQuestions(String resourcePath, String categoryName, LinkedList questions, LinkedList answers) {
+    private void loadQuestions(String resourcePath, String categoryName, LinkedList<String> questions, LinkedList<String> answers) {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
              InputStreamReader isr = new InputStreamReader(inputStream);
              BufferedReader reader = new BufferedReader(isr)) {
             String line;
-            ArrayList unshuffledQuestions = new ArrayList();
-            ArrayList unshuffledAnswers = new ArrayList();
+            ArrayList<String> unshuffledQuestions = new ArrayList<>();
+            ArrayList<String> unshuffledAnswers = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
                 // Clean Code C4: Explaining Variable — reveals intent of the validation
@@ -66,7 +66,7 @@ public class Game {
                 }
             }
             // Clean Code C4: Extract Method — create once, reuse for questions AND answers to preserve pairing
-            ArrayList shuffledIndices = createShuffledIndices(unshuffledQuestions.size());
+            ArrayList<Integer> shuffledIndices = createShuffledIndices(unshuffledQuestions.size());
             shuffleInto(unshuffledQuestions, questions, shuffledIndices);
             shuffleInto(unshuffledAnswers, answers, shuffledIndices);
         } catch (IOException e) {
@@ -86,8 +86,8 @@ public class Game {
 
     // Clean Code C4: Extract Method — builds and shuffles a list of indices for random access
     // Do One Thing: creates [0, 1, ..., size-1], shuffles it, returns it
-    private ArrayList createShuffledIndices(int size) {
-        ArrayList indices = new ArrayList();
+    private ArrayList<Integer> createShuffledIndices(int size) {
+        ArrayList<Integer> indices = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             indices.add(i);
         }
@@ -98,9 +98,9 @@ public class Game {
     // Clean Code C4: Extract Method — copies source elements into target using pre-shuffled indices
     // Do One Thing: iterates over indices, adding source.get(index) to target
     // Note: call with SAME indices for paired lists (questions + answers) to preserve pairing
-    private void shuffleInto(ArrayList source, LinkedList target, ArrayList indices) {
+    private void shuffleInto(ArrayList<String> source, LinkedList<String> target, ArrayList<Integer> indices) {
         for (int i = 0; i < indices.size(); i++) {
-            int index = (Integer) indices.get(i);
+            int index = indices.get(i);
             target.addLast(source.get(index));
         }
     }
@@ -178,17 +178,17 @@ public class Game {
     // Instead of evaluating currentCategory() 4 times per call, compute index once and use parallel arrays
     private void askQuestion() {
         int categoryIndex = currentCategoryIndex();
-        LinkedList[] allQuestions = {
+        LinkedList<String>[] allQuestions = new LinkedList[]{
             softwareHistoryQuestions, programmingLanguagesQuestions,
             refactoringQuestions, testingQuestions
         };
-        LinkedList[] allAnswers = {
+        LinkedList<String>[] allAnswers = new LinkedList[]{
             softwareHistoryAnswers, programmingLanguagesAnswers,
             refactoringAnswers, testingAnswers
         };
 
-        display((String) allQuestions[categoryIndex].removeFirst());
-        currentCorrectAnswer = (String) allAnswers[categoryIndex].removeFirst();
+        display(allQuestions[categoryIndex].removeFirst());
+        currentCorrectAnswer = allAnswers[categoryIndex].removeFirst();
     }
 
     // Clean Code: Extract Method, DRY — duplicated (boardPositions[currentPlayer]-1) % CATEGORIES.length
